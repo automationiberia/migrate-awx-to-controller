@@ -1,2 +1,3 @@
 .vault-password
 ansible-navigator.log
+playbooks/*-artifact-*.json
