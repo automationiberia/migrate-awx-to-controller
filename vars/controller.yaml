@@ -1,0 +1,15 @@
+---
+tower:
+  filename:
+    kubeconfig:
+managed_serviceaccount:
+  token: "{{ vault_managed_serviceaccount_token }}"
+ee_image: quay.io/automationiberia/eda/ee-acm-eda
+git_url: git@github.com:automationiberia/acm-eda.git
+git_ssh_key_data: "{{ vault_git_ssh_key_data }}"
+git_user: "{{ vault_git_user }}"
+hub_kubeconfig_file_content: "{{ vault_hub_kubeconfig_file_content | b64decode }}"
+inventory_source_path: "inventories/acm-inventory.yaml"
+playbook_source_path: "playbooks/cluster-day2-operations.yaml"
+user_aap_pwd: "{{ vault_user_aap_pwd }}"
+...

@@ -1,0 +1,11 @@
+---
+controller_user_accounts:
+- username: "awx-org-user"
+  password: "{{ user_aap_pwd }}"
+  email: ""
+  first_name: "ACM"
+  last_name: "EDA"
+  auditor: "False"
+  superuser: "False"
+  update_secrets: False
+...

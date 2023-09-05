@@ -1,0 +1,8 @@
+---
+controller_execution_environments:
+  - name: "ee-awx-org"
+    description: ""
+    image: "{{ ee_image }}"
+    pull: "always"
+    # credential: "awx-org Disconnected Registry"
+...

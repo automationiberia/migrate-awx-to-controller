@@ -1,0 +1,16 @@
+---
+controller_projects:
+  - name: "awx-org Project"
+    description: ""
+    organization: "awx-org"
+    scm_type: "git"
+    scm_url: "{{ git_url }}"
+    scm_credential: "Git Credential"
+    scm_branch: ""
+    scm_clean: "True"
+    scm_delete_on_update: "True"
+    scm_update_on_launch: "False"
+    scm_update_cache_timeout: "0"
+    allow_override: "False"
+    timeout: 0
+...
