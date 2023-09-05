@@ -10,7 +10,7 @@ $  python3 -m pip install ansible-builder>=3.0.0 --user
 
 . Run the playbook to export the configuration in the automation controller:
    ```
-   ansible-navigator run playbooks/config-controller-export.yaml -i localhost -m stdout --eei quay.io/automationiberia/casc/ee-casc:latest --eev /tmp/:/tmp/ -e @vars/vault.yaml --vault-password-file .vault-password  -e'{ansible_async_dir: /home/runner/.ansible_async/}'
+    ansible-navigator run playbooks/config-controller-export.yaml -i localhost -m stdout --eei quay.io/automationiberia/casc/ee-casc:latest --eev /tmp/:/tmp/ -e @vars/vault.yaml --vault-password-file .vault-password  -e'{ansible_async_dir: /home/runner/.ansible_async/, is_aap: false}
    ```
 . Run the playbook to apply the configuration in the automation controller:
    ```
