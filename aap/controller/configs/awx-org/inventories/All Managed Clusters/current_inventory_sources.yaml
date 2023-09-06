@@ -1,9 +1,0 @@
----
-controller_inventory_sources:
-  - name: "Auto-created source for: All Managed Clusters"
-    organization: "awx-org"
-    inventory: "All Managed Clusters"
-    source_vars:
-      plugin: constructed
-    limit: "all-managed-clusters"
-...

@@ -1,0 +1,7 @@
+---
+controller_settings:
+  - settings:
+      CUSTOM_LOGIN_INFO: "Configuration as Code Migration Test"
+      AWX_TASK_ENV:
+        GIT_SSL_NO_VERIFY: 'True'
+...

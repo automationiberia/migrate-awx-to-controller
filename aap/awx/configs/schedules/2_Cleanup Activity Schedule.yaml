@@ -1,0 +1,19 @@
+---
+controller_schedules:
+  - name: "Cleanup Activity Schedule"
+    description: "Automatically Generated Schedule"
+    enabled: True
+    unified_job_template: "Cleanup Activity Stream"
+    dtstart: "2023-09-05T18:12:42Z"
+    dtend: ""
+    timezone: "UTC"
+    rrule: "DTSTART:20230905T181242Z RRULE:FREQ=WEEKLY;INTERVAL=1;BYDAY=TU"
+    extra_data:
+      days: '355'
+    scm_branch: ""
+    job_type: ""
+    job_tags: ""
+    skip_tags: ""
+    limit: ""
+    verbosity: 0
+...

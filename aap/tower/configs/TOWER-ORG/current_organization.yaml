@@ -1,0 +1,5 @@
+---
+controller_organizations:
+  - name: "TOWER-ORG"
+    description: "Organization in TOWER"
+...

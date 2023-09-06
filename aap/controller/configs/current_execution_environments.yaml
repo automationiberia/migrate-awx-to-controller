@@ -1,8 +1,11 @@
 ---
 controller_execution_environments:
-  - name: "ee-awx-org"
+  - name: "My EE"
     description: ""
-    image: "{{ ee_image }}"
+    image: "quay.io/ansible/awx-ee"
     pull: "always"
-    # credential: "awx-org Disconnected Registry"
+  - name: "ee-casc"
+    description: ""
+    image: "quay.io/automationiberia/casc/ee-casc"
+    pull: "always"
 ...

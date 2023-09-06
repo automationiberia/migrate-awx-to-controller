@@ -1,0 +1,15 @@
+---
+controller_projects:
+  - name: "CONTROLLER-Project-Inventory"
+    description: ""
+    organization: "CONTROLLER-ORG"
+    scm_type: "git"
+    scm_url: "https://github.com/automationiberia/simple-ansible-inventory.git"
+    scm_branch: ""
+    scm_clean: "True"
+    scm_delete_on_update: "True"
+    scm_update_on_launch: "False"
+    scm_update_cache_timeout: "0"
+    allow_override: "False"
+    timeout: 0
+...

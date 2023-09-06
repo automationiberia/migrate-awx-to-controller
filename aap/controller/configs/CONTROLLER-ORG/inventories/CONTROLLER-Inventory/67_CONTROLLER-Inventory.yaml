@@ -1,0 +1,6 @@
+---
+controller_inventories:
+  - name: "CONTROLLER-Inventory"
+    description: ""
+    organization: "CONTROLLER-ORG"
+...

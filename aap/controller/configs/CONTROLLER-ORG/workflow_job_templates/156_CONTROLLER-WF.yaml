@@ -1,0 +1,48 @@
+---
+controller_workflows:
+  - name: "CONTROLLER-WF"
+    description: ""
+    organization: "CONTROLLER-ORG"
+    state: "present"
+    simplified_workflow_nodes:
+      - identifier: "PROJECT_UPDATE"
+        workflow_job_template: "CONTROLLER-WF"
+        unified_job_template: "CONTROLLER-Project"
+        organization: "CONTROLLER-ORG"
+        all_parents_must_converge: "False"
+        success_nodes:
+          - JOB_TEMPLATE_1
+      - identifier: "JOB_TEMPLATE_1"
+        workflow_job_template: "CONTROLLER-WF"
+        unified_job_template: "CONTROLLER-Helloworld"
+        organization: "CONTROLLER-ORG"
+        all_parents_must_converge: "False"
+        always_nodes:
+          - JOB_TEMPLATE_2
+      - identifier: "JOB_TEMPLATE_2"
+        workflow_job_template: "CONTROLLER-WF"
+        unified_job_template: "CONTROLLER-Read-Only-Playbook"
+        organization: "CONTROLLER-ORG"
+        all_parents_must_converge: "False"
+        success_nodes:
+          - JOB_TEMPLATE_4
+        failure_nodes:
+          - JOB_TEMPLATE_3
+      - identifier: "JOB_TEMPLATE_3"
+        workflow_job_template: "CONTROLLER-WF"
+        unified_job_template: "CONTROLLER-Helloworld"
+        organization: "CONTROLLER-ORG"
+        all_parents_must_converge: "False"
+      - identifier: "JOB_TEMPLATE_4"
+        workflow_job_template: "CONTROLLER-WF"
+        unified_job_template: "CONTROLLER-Read-Only-Playbook"
+        organization: "CONTROLLER-ORG"
+        all_parents_must_converge: "False"
+    survey_enabled: "False"
+    ask_variables_on_launch: "False"
+    allow_simultaneous: "False"
+    scm_branch: ""
+    webhook_service: "gitlab"
+    survey_enabled: False
+    survey_spec: {}
+...

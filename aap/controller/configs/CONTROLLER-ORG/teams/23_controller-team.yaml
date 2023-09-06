@@ -1,0 +1,6 @@
+---
+controller_teams:
+  - name: "controller-team"
+    description: ""
+    organization: "CONTROLLER-ORG"
+...

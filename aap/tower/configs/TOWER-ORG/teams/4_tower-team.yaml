@@ -1,0 +1,6 @@
+---
+controller_teams:
+  - name: "tower-team"
+    description: ""
+    organization: "TOWER-ORG"
+...

@@ -1,0 +1,19 @@
+---
+controller_schedules:
+  - name: "Cleanup Expired Sessions"
+    description: "Cleans out expired browser sessions"
+    enabled: True
+    unified_job_template: "Cleanup Expired Sessions"
+    dtstart: "2023-09-05T18:14:08Z"
+    dtend: "2023-09-05T18:14:08Z"
+    timezone: "UTC"
+    rrule: "DTSTART:20230905T181408Z RRULE:FREQ=WEEKLY;INTERVAL=1;COUNT=1"
+    extra_data:
+      {}
+    scm_branch: ""
+    job_type: ""
+    job_tags: ""
+    skip_tags: ""
+    limit: ""
+    verbosity: 0
+...

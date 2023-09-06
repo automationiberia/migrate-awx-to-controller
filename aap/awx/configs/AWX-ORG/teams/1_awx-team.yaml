@@ -1,0 +1,6 @@
+---
+controller_teams:
+  - name: "awx-team"
+    description: ""
+    organization: "AWX-ORG"
+...

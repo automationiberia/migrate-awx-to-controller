@@ -1,8 +1,0 @@
----
-controller_inventories:
-  - name: "awx-org Inventory"
-    description: ""
-    organization: "awx-org"
-    variables:
-      ansible_python_interpreter: /usr/bin/python3.9
-...

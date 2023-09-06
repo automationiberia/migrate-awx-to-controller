@@ -1,0 +1,6 @@
+---
+controller_inventories:
+  - name: "TOWER-Inventory"
+    description: ""
+    organization: "TOWER-ORG"
+...

@@ -1,0 +1,7 @@
+---
+controller_roles:
+  - team: "controller-team"
+    organizations:
+      - "CONTROLLER-ORG"
+    role: "execute"
+...

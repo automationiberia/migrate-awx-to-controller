@@ -1,0 +1,11 @@
+---
+controller_user_accounts:
+- username: "admin"
+  password: "{{ vault_user_aap_pwd }}"
+  email: "root@localhost"
+  first_name: ""
+  last_name: ""
+  auditor: "False"
+  superuser: "True"
+  update_secrets: False
+...

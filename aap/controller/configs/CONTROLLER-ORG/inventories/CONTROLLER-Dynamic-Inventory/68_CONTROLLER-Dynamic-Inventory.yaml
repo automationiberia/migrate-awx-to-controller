@@ -1,0 +1,6 @@
+---
+controller_inventories:
+  - name: "CONTROLLER-Dynamic-Inventory"
+    description: ""
+    organization: "CONTROLLER-ORG"
+...

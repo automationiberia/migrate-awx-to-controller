@@ -1,0 +1,7 @@
+---
+controller_roles:
+  - team: "tower-team"
+    organizations:
+      - "TOWER-ORG"
+    role: "execute"
+...

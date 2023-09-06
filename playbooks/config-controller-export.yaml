@@ -6,10 +6,10 @@
   vars:
     assign_galaxy_credentials_to_org: false
     controller_state: present
-    controller_hostname: "{{ vault_awx_hostname }}"
-    controller_username: "{{ vault_awx_username }}"
-    controller_password: "{{ vault_awx_password }}"
-    controller_validate_certs: "{{ vault_awx_validate_certs }}"
+    controller_hostname: "{{ vault_controller_hostname }}"
+    controller_username: "{{ vault_controller_username }}"
+    controller_password: "{{ vault_controller_password }}"
+    controller_validate_certs: "{{ vault_controller_validate_certs }}"
   pre_tasks:
     - name: "Setup authentication (block)"
       no_log: "{{ controller_configuration_filetree_create_secure_logging }}"

@@ -1,0 +1,11 @@
+---
+controller_user_accounts:
+- username: "tower-org-user"
+  password: "{{ vault_user_aap_pwd }}"
+  email: "tower-org-user@email.com"
+  first_name: "TOWER"
+  last_name: "USER"
+  auditor: "False"
+  superuser: "False"
+  update_secrets: False
+...
