@@ -1,12 +1,12 @@
 ---
 controller_projects:
-  - name: "TOWER-Project"
+  - name: "AWX-Project-Inventory"
     description: ""
-    organization: "TOWER-ORG"
+    organization: "AWX-ORG"
     scm_type: "git"
-    scm_url: "http://gitlab.bcnconsulting.com/ansibleday-berlin/dummy-playbooks.git"
-    scm_credential: "TOWER-Git-Credential"
-    scm_branch: "dev-site"
+    scm_url: "http://gitlab.bcnconsulting.com/ansibleday-berlin/simple-ansible-inventory.git"
+    scm_credential: "AWX-Git-Credential"
+    scm_branch: ""
     scm_clean: "True"
     scm_delete_on_update: "True"
     scm_update_on_launch: "False"

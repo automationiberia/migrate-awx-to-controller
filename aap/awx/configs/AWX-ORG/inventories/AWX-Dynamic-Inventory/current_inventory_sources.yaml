@@ -1,0 +1,11 @@
+---
+controller_inventory_sources:
+  - name: "AWX-DYN-INV-SOURCE"
+    description: ""
+    organization: "AWX-ORG"
+    source: "scm"
+    source_project: "AWX-Project-Inventory"
+    inventory: "AWX-Dynamic-Inventory"
+    update_on_launch: "True"
+    overwrite: "True"
+...
