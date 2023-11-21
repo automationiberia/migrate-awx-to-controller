@@ -4,7 +4,7 @@ controller_projects:
     description: ""
     organization: "CONTROLLER-ORG"
     scm_type: "git"
-    scm_url: "http://gitlab.bcnconsulting.com/ansibleday-berlin/simple-ansible-inventory.git"
+    scm_url: "http://gitlab.bcnconsulting.com/automation-everywhere/simple-ansible-inventory.git"
     scm_credential: "CONTROLLER-Git-Credential"
     scm_branch: ""
     scm_clean: "True"

@@ -4,7 +4,7 @@ controller_projects:
     description: ""
     organization: "TOWER-ORG"
     scm_type: "git"
-    scm_url: "http://gitlab.bcnconsulting.com/ansibleday-berlin/dummy-playbooks.git"
+    scm_url: "http://gitlab.bcnconsulting.com/automation-everywhere/dummy-playbooks.git"
     scm_credential: "TOWER-Git-Credential"
     scm_branch: "dev-site"
     scm_clean: "True"
