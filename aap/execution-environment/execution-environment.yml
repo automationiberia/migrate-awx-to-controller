@@ -18,7 +18,6 @@ dependencies:
     krb5-workstation [platform:rpm]
     subversion [platform:rpm]
     subversion [platform:dpkg]
-    git-lfs [platform:rpm]
     sshpass [platform:rpm]
     rsync [platform:rpm]
     epel-release [platform:rpm]
@@ -40,5 +39,4 @@ additional_build_steps:
   append_final:
     - COPY --from=quay.io/ansible/receptor:devel /usr/bin/receptor /usr/bin/receptor
     - RUN mkdir -p /var/run/receptor
-    - RUN git lfs install --system
     - RUN ansible-galaxy collection install git+https://github.com/redhat-cop/eda_configuration.git --collections-path "/usr/share/ansible/collections"
