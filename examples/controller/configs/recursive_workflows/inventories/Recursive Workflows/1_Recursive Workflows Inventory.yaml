@@ -1,0 +1,6 @@
+---
+controller_inventories:
+  - name: "Recursive Workflows Inventory"
+    description: ""
+    organization: "Recursive Workflows"
+...

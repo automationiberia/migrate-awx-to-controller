@@ -1,0 +1,31 @@
+---
+controller_workflows:
+  - name: "ParameterizedWorkflow2"
+    description: ""
+    organization: "Recursive Workflows"
+    state: "present"
+    extra_vars:
+      param1: "Hello from workflow2"
+    simplified_workflow_nodes:
+      - identifier: "ParameterizedWorflow2Node1"
+        workflow_job_template: "ParameterizedWorkflow2"
+        unified_job_template: "Parameterized Job Template"
+        organization: "Recursive Workflows"
+        all_parents_must_converge: "False"
+        extra_data:
+          param2: World
+        success_nodes:
+          - ParameterizedWorflow2Node2
+      - identifier: "ParameterizedWorflow2Node2"
+        workflow_job_template: "ParameterizedWorkflow2"
+        unified_job_template: "Parameterized Job Template"
+        organization: "Recursive Workflows"
+        all_parents_must_converge: "False"
+    survey_enabled: "False"
+    ask_variables_on_launch: "False"
+    allow_simultaneous: "False"
+    scm_branch: ""
+    webhook_service: ""
+    survey_enabled: False
+    survey_spec: {}
+...

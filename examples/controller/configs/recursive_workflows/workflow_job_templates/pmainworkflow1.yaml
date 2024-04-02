@@ -1,0 +1,29 @@
+---
+controller_workflows:
+  - name: "ParameterizedRecursiveWorkflowsMainWorkflow"
+    description: ""
+    organization: "Recursive Workflows"
+    state: "present"
+    extra_vars:
+      param2: "world from Main"
+    simplified_workflow_nodes:
+      - identifier: "prwmw1"
+        workflow_job_template: "ParameterizedMainWorkflow"
+        unified_job_template: "ParameterizedWorkflow1"
+        organization: "Recursive Workflows"
+        all_parents_must_converge: "False"
+        success_nodes:
+          - prwmw2
+      - identifier: "prwmw2"
+        workflow_job_template: "ParameterizedMainWorkflow"
+        unified_job_template: "ParameterizedWorkflow2"
+        organization: "Recursive Workflows"
+        all_parents_must_converge: "False"
+    survey_enabled: "False"
+    ask_variables_on_launch: "False"
+    allow_simultaneous: "False"
+    scm_branch: ""
+    webhook_service: ""
+    survey_enabled: False
+    survey_spec: {}
+...
