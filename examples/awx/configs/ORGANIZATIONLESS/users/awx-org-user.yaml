@@ -1,7 +1,7 @@
 ---
 controller_user_accounts:
 - username: "awx-org-user"
-  password: "{{ vault_user_aap_pwd }}"
+  password: "{{ controller_password }}"
   email: "awx-org-user@email.com"
   first_name: "AWX"
   last_name: "USER"
