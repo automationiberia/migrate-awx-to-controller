@@ -1,6 +1,0 @@
----
-controller_groups:
-  - name: "{{ env }}"
-    inventory: "{{ orgs }} {{ env }} Controller"
-    hosts: "{{ groups[env] }}"
-...

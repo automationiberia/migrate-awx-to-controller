@@ -1,6 +1,0 @@
----
-controller_inventories:
-  - name: "{{ orgs }} {{ env }} Controller"
-    description: "Inventory for the Controller"
-    organization: "{{ orgs }}"
-...

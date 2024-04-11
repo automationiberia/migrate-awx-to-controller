@@ -1,7 +1,0 @@
----
-controller_organizations:
-{% for users_item in users_list.list %}
-  - name: "{{ users_item['gitlab.com User'] | regex_replace('@','') }}"
-    description: "Organization to test CasC"
-{% endfor %}
-...

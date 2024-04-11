@@ -1,7 +1,0 @@
----
-controller_organizations:
-  - name: "{{ organization_name }}"
-    description: "{{ organization_desc }}"
-    instance_groups:
-      {{ (instance_groups if (instance_groups | type_debug is match('list')) else (instance_groups.split(',') if ',' in instance_groups else [instance_groups]) ) | to_nice_yaml }}
-...

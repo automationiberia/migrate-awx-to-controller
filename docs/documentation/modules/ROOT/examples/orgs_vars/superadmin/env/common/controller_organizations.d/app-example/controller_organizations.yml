@@ -1,7 +1,0 @@
----
-controller_organizations: []
-#   - name: "casc_org1"
-#     description: "Organization to test CasC 1"
-#   - name: "casc_org2"
-#     description: "Organization to test CasC 2"
-...
