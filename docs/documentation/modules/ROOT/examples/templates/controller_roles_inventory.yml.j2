@@ -1,0 +1,9 @@
+---
+controller_roles:
+{% for users_item in users_list.list %}
+  - user: "{{ users_item['gitlab.com User'] | regex_replace('@','') }}"
+    inventories:
+      - "{{ orgs | default('superadmin') }} Controller"
+    role: use
+{% endfor %}
+...

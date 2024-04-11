@@ -1,0 +1,46 @@
+---
+controller_settings: []
+#   - name: AUTH_LDAP_ORGANIZATION_MAP
+#     value:
+#       superadmin:
+#         admins: cn=controller-admins,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         remove_users: true
+#         remove_admins: true
+#       Organization1:
+#         admins:
+#           - cn=team-ldap-org01-admins,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         users:
+#           - cn=team-ldap-org01-users,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#           - cn=team-ldap-org01-devs,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         remove_users: true
+#         remove_admins: true
+#       Organization2:
+#         admins:
+#           - cn=team-ldap-org02-admins,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         users:
+#           - cn=team-ldap-org02-users,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#           - cn=team-ldap-org02-devs,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         remove_users: true
+#         remove_admins: true
+#       org-os-config:
+#         admins:
+#           - cn=ldapteam-osconfig-adms,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         users:
+#           - cn=ldapteam-osconfig-devs,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#           - cn=ldapteam-osconfig-oprs,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         remove_users: true
+#         remove_admins: true
+#       org-delegated:
+#         admins:
+#           - cn=ldapteam-delegated-adms,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         users:
+#           - cn=ldapteam-delegated-devs,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#           - cn=ldapteam-delegated-oprs,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         remove_users: true
+#         remove_admins: true
+#       org-crossteams:
+#         users:
+#           - cn=ldapteam-crossteams-users,cn=groups,cn=accounts,dc=lab,dc=example,dc=com
+#         remove_users: true
+#         remove_admins: true
+...

@@ -1,0 +1,20 @@
+---
+controller_instance_groups: []
+  # - name: Container_Groups_Instance
+  #   is_container_group: true
+  #   credential: "{{ orgs }} {{ env }} OCP Credential"
+  #   pod_spec_override: |
+  #     apiVersion: v1
+  #     kind: Pod
+  #     metadata:
+  #       namespace: ansible-automation-platform-pre
+  #     spec:
+  #       containers:
+  #         - image: >-
+  #             registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
+  #           name: worker
+  #           args:
+  #             - ansible-runner
+  #             - worker
+  #             - '--private-data-dir=/runner'
+...

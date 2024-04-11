@@ -1,0 +1,5 @@
+---
+controller_settings:
+  - name: CUSTOM_LOGIN_INFO
+    value: "Automation Controller CasC - Consulting Iberia"
+...

@@ -1,0 +1,15 @@
+---
+controller_projects:
+  - name: "{{ organization_name }} CasC Data"
+    description: "Project to manage the CasC of the {{ orgs }} Org"
+    organization: "{{ orgs }}"
+    scm_type: git
+    scm_url: "${PROJECT_URL_CASC}"
+    scm_credential: "{{ orgs }} {{ env }} GitLab Credential"
+    scm_branch: "{{ awx_project_scm_branch | default(env) }}"
+    scm_clean: false
+    scm_delete_on_update: false
+    scm_update_on_launch: false
+    scm_update_cache_timeout: 86400
+    allow_override: true
+...

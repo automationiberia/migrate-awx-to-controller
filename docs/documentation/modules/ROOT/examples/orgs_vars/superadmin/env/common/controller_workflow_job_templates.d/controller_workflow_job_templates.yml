@@ -1,0 +1,195 @@
+---
+controller_workflows:
+  - name: "{{ orgs }} {{ env }} WF New Project"
+    state: present
+    description: "Workflow to create a new project"
+    ask_variables_on_launch: false
+    allow_simultaneous: true
+    scm_branch: "{{ env }}"
+    organization: "{{ orgs }}"
+    simplified_workflow_nodes:
+      - identifier: "Create Webhooks"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} Gitlab Webhook Creation"
+        job_type: run
+        organization: "{{ orgs }}"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
+
+      - identifier: "Create SuperAdmin Objects"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} New Organization Objects"
+        job_type: run
+        organization: "{{ orgs }}"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
+        success_nodes:
+          - "Create Webhooks"
+
+      - identifier: "Create GitLab Repo"
+        workflow_job_template: "{{ orgs }} {{ env }} WF New Project"
+        unified_job_template: "{{ orgs }} {{ env }} Gitlab Project Creation"
+        job_type: run
+        organization: "{{ orgs }}"
+        workflow: "{{ orgs }} {{ env }} WF New Project"
+        extra_data:
+          controller_dev: "${CONTROLLER_DEV_HOST}"
+          controller_pro: "${CONTROLLER_PRO_HOST}"
+          gitlab_api_url: "https://gitlab.com"
+          gitlab_group: ""
+          gitlab_subgroup: ""
+          gitlab_project: "dummy"
+          gitlab_visibility: "internal"
+          gitlab_default_branch: "pro"
+          gitlab_http_protocol: "https"
+          gitlab_branches_string: "dummy"
+        success_nodes:
+          - "Create SuperAdmin Objects"
+    notification_templates_started: []
+    notification_templates_success: []
+    notification_templates_error: []
+    notification_templates_approvals: []
+    extra_vars:
+      orgs: "{{ orgs }}"
+      orgs_vars: "{{ orgs_vars | default(dir_orgs_vars) }}"
+      env: "{{ env }}"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} {{ env }} Survey Gitlab Project Creation'
+      description: 'Survey Gitlab Project Creation'
+      spec:
+        - question_name: Name for the new Organization
+          question_description: Must be the same name of GitLab project to be created
+          required: true
+          type: text
+          variable: "organization_name"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: Organization description
+          required: true
+          type: text
+          variable: "organization_desc"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: Instance groups to assign the new organization to
+          required: false
+          type: text
+          variable: "instance_groups"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: Admin user for the new Organization
+          required: true
+          type: text
+          variable: "admin_user"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: Ansible Controller Host (Dev)
+          required: true
+          type: multiplechoice
+          variable: controller_dev
+          min: 0
+          max: 1024
+          choices:
+            - "${CONTROLLER_DEV_HOST}"
+          default: "${CONTROLLER_DEV_HOST}"
+          new_question: true
+
+        - question_name: Ansible Controller Host (Pro)
+          required: true
+          type: multiplechoice
+          variable: controller_pro
+          min: 0
+          max: 1024
+          choices:
+            - "${CONTROLLER_PRO_HOST}"
+          default: "${CONTROLLER_PRO_HOST}"
+          new_question: true
+
+        - question_name: GitLab API URL
+          required: true
+          type: multiplechoice
+          variable: gitlab_api_url
+          min: 0
+          max: 1024
+          choices:
+            - "https://gitlab.com"
+          default: "https://gitlab.com"
+          new_question: true
+
+        - question_name: GitLab group name
+          required: false
+          type: text
+          variable: gitlab_group
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: GitLab subgroup name
+          required: false
+          type: text
+          variable: gitlab_subgroup
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: GitLab Project
+          question_description: Must be the same name of the organization to be created
+          required: true
+          type: text
+          variable: "gitlab_project"
+          min: 0
+          max: 80
+          new_question: true
+
+        - question_name: GitLab project visibility
+          required: true
+          type: multiplechoice
+          variable: gitlab_visibility
+          min: 0
+          max: 1024
+          choices:
+            - "internal"
+            - "public"
+          default: "public"
+          new_question: true
+
+        - question_name: GitLab default branch
+          required: true
+          type: multiplechoice
+          variable: gitlab_default_branch
+          min: 0
+          max: 1024
+          choices:
+            - "pro"
+          default: "pro"
+          new_question: true
+
+        - question_name: GitLab http connection Protocol
+          required: true
+          type: multiplechoice
+          variable: gitlab_http_protocol
+          min: 0
+          max: 1024
+          choices:
+            - "https"
+            - "http"
+          default: "https"
+          new_question: true
+
+        - question_name: GitLab branches to be created
+          required: true
+          type: textarea
+          variable: gitlab_branches_string
+          min: 0
+          max: 1024
+          default: "dev\npro"
+          new_question: true
+...

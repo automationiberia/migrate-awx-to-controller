@@ -1,0 +1,36 @@
+:sectnums:
+
+* xref:index.adoc#_quick_introduction_to_cac[1. Introduction]
+
+* 2. CasC setup part 1 (to be executed by a controller admin user)
+** DayZero
+*** xref:021-initial-dir-and-files.adoc#_pre_requisites[Pre-Requisites]
+*** xref:021-initial-dir-and-files.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[Export all the variables to be used in the next steps]
+*** xref:021-initial-dir-and-files.adoc#_housekeeping[Housekeeping]
+*** xref:021-initial-dir-and-files.adoc#_create_the_ansible_inventory_file_for_the_environment[Create the ansible inventory file for the environment]
+*** xref:021-initial-dir-and-files.adoc#_create_the_automation_directories_structure[Create the automation directories structure]
+*** xref:021-initial-dir-and-files.adoc#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables[Configure ansible connection to the AAP Controllers (common and per environment variables)]
+*** xref:021-initial-dir-and-files.adoc#_create_the_cac_playbooks[Create the CaC playbooks]
+*** xref:021-initial-dir-and-files.adoc#_define_controller_objects_as_code[Define Controller Objects as Code]
+*** xref:021-initial-dir-and-files.adoc#_commit_and_push_the_initial_version_of_cac[Commit and push the initial version of CaC]
+*** xref:021-initial-dir-and-files.adoc#_change_the_default_branch_at_the_gitlab_repository[Change the default branch at the GitLab repository]
+*** xref:022-deploy-superadmin-objects.adoc[Deploy the SuperAdmin objects]
+** Day Two
+*** xref:023-superadmin-create-new-organization.adoc[Create New Organization]
+
+* 3. CasC setup part 2 (to be executed by a regular organization's admin user)
+** Day Zero
+*** xref:031-regularuser-day-zero.adoc#_export_all_the_variables_to_be_used_in_the_next_steps[Export all the variables to be used in the next steps]
+*** xref:031-regularuser-day-zero.adoc#_clone_the_repository_and_create_a_new_branch[Clone the newly assigned GitLab Repository]
+*** xref:031-regularuser-day-zero.adoc#_creating_the_vault_password_file[Creating the .vault_password file]
+*** xref:031-regularuser-day-zero.adoc#_edit_credentials_to_connect_to_the_controller_for_day_zero[Edit credentials to connect to the controller for day zero]
+*** xref:031-regularuser-day-zero.adoc#_edit_credentials_objects[Edit credentials objects]
+*** xref:031-regularuser-day-zero.adoc#_check_the_inventory_file[Check the inventory file]
+*** xref:031-regularuser-day-zero.adoc#_creating_the_vault_password_file[Creating the `.vault_password` file]
+*** xref:031-regularuser-day-zero.adoc#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc[Launch ansible-navigator from CLI to setup day-zero of CasC]
+*** xref:031-regularuser-day-zero.adoc#_push_the_changes[Push the changes]
+*** xref:031-regularuser-day-zero.adoc#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch[Pomote the `casc-dev-day0` branch to dev (`dev` branch)]
+*** xref:031-regularuser-day-zero.adoc#_promote_the_dev_branch_to_pro_pro_branch[Promote the `dev` branch to pro (`pro` branch)]
+** DayTwo
+*** xref:032-regularuser-day-two.adoc[Populate new organization objects]
+*** xref:033-regularuser-day-two-deploy-objects.adoc[Push the changes to create the new objects]

@@ -1,0 +1,15 @@
+---
+controller_projects:
+  - name: "{{ orgs }} {{ env }} CasC GitLab Webhook"
+    description: "Project to include playbooks to configure the GitLab Webhooks for the CasC to be able to run"
+    organization: "{{ orgs }}"
+    scm_type: git
+    scm_url: "${PROJECT_URL_CASC_SETUP}"
+    scm_credential: "{{ orgs }} {{ env }} GitLab Credential"
+    scm_branch: main
+    scm_clean: false
+    scm_delete_on_update: false
+    scm_update_on_launch: false
+    scm_update_cache_timeout: 86400
+    allow_override: true
+...

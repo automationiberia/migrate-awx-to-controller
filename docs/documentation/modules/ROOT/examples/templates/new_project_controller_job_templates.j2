@@ -1,0 +1,62 @@
+---
+controller_templates:
+  - name: "{{ organization_name }} CasC Ctrl CD Webhook Trigger"
+    description: "Template to attend Controller CasC webhook"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_cd_webhook_trigger.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+    webhook_service: "gitlab"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+  - name: "{{ organization_name }} CasC Ctrl Config"
+    description: "Template to attend Controller CasC Configuration"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_config.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ organization_name }} {{ env }} AAP CasC Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+  - name: "{{ organization_name }} CasC Ctrl Drop Diff"
+    description: "Template to attend Controller CasC Drop Diff"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_drop_diff.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ organization_name }} {{ env }} AAP CasC Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...

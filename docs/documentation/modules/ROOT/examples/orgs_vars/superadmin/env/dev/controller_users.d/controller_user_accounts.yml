@@ -1,0 +1,11 @@
+---
+controller_user_accounts:
+  - username: "${AAP_USER_NAME}"
+    password: "${AAP_USER_PASSWORD}"
+    email: "${AAP_USER_EMAIL}"
+    firstname: "${AAP_USER_FIRSTNAME}"
+    lastname: "${AAP_USER_LASTNAME}"
+    is_auditor: False
+    is_superuser: True
+    update_secrets: False
+...

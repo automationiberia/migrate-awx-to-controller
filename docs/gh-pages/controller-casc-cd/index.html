@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Welcome to the Workshop/Demo to configure an Automation Controller using a Continuous Deployment approach :: Automation Controller configuration Continuous Deployment with CasC</title>
+    <link rel="canonical" href="https://automationiberia.github.io/controller-casc-cd/controller-casc-cd/index.html">
+    <link rel="next" href="021-initial-dir-and-files.html#_pre_requisites">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../_/css/site.css">
+<link rel="icon" href="../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img
+          src="../_/img/header_logo.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" href="https://automationiberia.github.io/controller-casc-cd">Automation Controller configuration Continuous Deployment with CasC</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Books</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">CheatSheets</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">CheatSheet A</a>
+            <a class="navbar-item" href="#">CheatSheet B</a>
+            <a class="navbar-item" href="#">CheatSheet C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Upcoming Events</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Event A</a>
+            <a class="navbar-item" href="#">Event B</a>
+            <a class="navbar-item" href="#">Event C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Tutorial A</a>
+            <a class="navbar-item" href="#">Tutorial B</a>
+            <a class="navbar-item" href="#">Tutorial C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="controller-casc-cd" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#_quick_introduction_to_cac">1. Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">2. CasC setup part 1 (to be executed by a controller admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DayZero</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_housekeeping">Housekeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_ansible_inventory_file_for_the_environment">Create the ansible inventory file for the environment</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_automation_directories_structure">Create the automation directories structure</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables">Configure ansible connection to the AAP Controllers (common and per environment variables)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_cac_playbooks">Create the CaC playbooks</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_define_controller_objects_as_code">Define Controller Objects as Code</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_commit_and_push_the_initial_version_of_cac">Commit and push the initial version of CaC</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_change_the_default_branch_at_the_gitlab_repository">Change the default branch at the GitLab repository</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Two</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="023-superadmin-create-new-organization.html">Create New Organization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3. CasC setup part 2 (to be executed by a regular organization&#8217;s admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Zero</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_clone_the_repository_and_create_a_new_branch">Clone the newly assigned GitLab Repository</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the .vault_password file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_to_connect_to_the_controller_for_day_zero">Edit credentials to connect to the controller for day zero</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_objects">Edit credentials objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_check_the_inventory_file">Check the inventory file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the <code>.vault_password</code> file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc">Launch ansible-navigator from CLI to setup day-zero of CasC</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_push_the_changes">Push the changes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch">Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_promote_the_dev_branch_to_pro_pro_branch">Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DayTwo</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="032-regularuser-day-two.html">Populate new organization objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Automation Controller configuration Continuous Deployment with CasC</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Automation Controller configuration Continuous Deployment with CasC</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Automation Controller configuration Continuous Deployment with CasC</a></li>
+    <li><a href="#_quick_introduction_to_cac">1. Introduction</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="file:///home/ivan/GIT/ivarmu/community/aap-casc-workshop/controller-casc-cd/documentation/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Welcome to the Workshop/Demo to configure an Automation Controller using a Continuous Deployment approach</h1>
+<div class="sect1">
+<h2 id="_quick_introduction_to_cac"><a class="anchor" href="#_quick_introduction_to_cac"></a>Quick introduction to CaC</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Below, there are two articles left here for further reference, that introduces the Configuration as Code applied to Ansible Automation Platform, as it will be introduced in the next sections for the Ansible Automation Controller.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.redhat.com/architect/ansible-automation-controller-cac-gitops">Manage automation controller Configuration as Code (CaC) with Ansible</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.redhat.com/architect/automation-controller-active-passive-architecture-cac">Manage automation controller active and passive multisite architecture with Ansible</a></p>
+</div>
+</div>
+</div>
+<div class="sect1 tiles browse">
+<h2 id="_browse_modules"><a class="anchor" href="#_browse_modules"></a>Browse modules</h2>
+<div class="sectionbody">
+<div class="paragraph tile">
+<p>Actions to be executed by Controller Admin</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DayZero</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="021-initial-dir-and-files.html#_pre_requisites" class="xref page">Pre-Requisites</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps" class="xref page">Export all the variables to be used in the next steps</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_housekeeping" class="xref page">Housekeeping</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_create_the_ansible_inventory_file_for_the_environment" class="xref page">Create the ansible inventory file for the environment</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_create_the_automation_directories_structure" class="xref page">Create the automation directories structure</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables" class="xref page">Configure ansible connection to the AAP Controllers (common and per environment variables)</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_create_the_cac_playbooks" class="xref page">Create the CaC playbooks</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_define_controller_objects_as_code" class="xref page">Define Controller Objects as Code</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_commit_and_push_the_initial_version_of_cac" class="xref page">Commit and push the initial version of CaC</a></p>
+</li>
+<li>
+<p><a href="021-initial-dir-and-files.html#_change_the_default_branch_at_the_gitlab_repository" class="xref page">Change the default branch at the GitLab repository</a></p>
+</li>
+<li>
+<p><a href="022-deploy-superadmin-objects.html" class="xref page">Deploy the SuperAdmin objects</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>DayTwo</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="023-superadmin-create-new-organization.html" class="xref page">Create New Organization</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph tile">
+<p>Actions to be executed by Regular User</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DayZero</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="031-regularuser-day-zero.html#_export_all_the_variables_to_be_used_in_the_next_steps" class="xref page">Export all the variables to be used in the next steps</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_clone_the_repository_and_create_a_new_branch" class="xref page">Clone the newly assigned GitLab Repository</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_creating_the_vault_password_file" class="xref page">Creating the .vault_password file</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_edit_credentials_to_connect_to_the_controller_for_day_zero" class="xref page">Edit credentials to connect to the controller for day zero</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_edit_credentials_objects" class="xref page">Edit credentials objects</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_check_the_inventory_file" class="xref page">Check the inventory file</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_creating_the_vault_password_file" class="xref page">Creating the <code>.vault_password</code> file</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc" class="xref page">Launch ansible-navigator from CLI to setup day-zero of CasC</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_push_the_changes" class="xref page">Push the changes</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch" class="xref page">Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</a></p>
+</li>
+<li>
+<p><a href="031-regularuser-day-zero.html#_promote_the_dev_branch_to_pro_pro_branch" class="xref page">Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>DayTwo</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="032-regularuser-day-two.html" class="xref page">Populate new organization objects</a></p>
+</li>
+<li>
+<p><a href="033-regularuser-day-two-deploy-objects.html" class="xref page">Push the changes to create the new objects</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="next"><a href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

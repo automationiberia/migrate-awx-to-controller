@@ -1,0 +1,47 @@
+---
+- hosts: all
+  connection: local
+  gather_facts: false
+  vars:
+    users_list_file: users.csv
+  tasks:
+    - name: Read users from CSV file and return a dictionary
+      community.general.read_csv:
+        path: "{{ users_list_file }}"
+      register: users_list
+      delegate_to: localhost
+
+    - name:
+      ansible.builtin.debug:
+        msg:
+          - "{{ user_item['First Name'] }}"
+          - "{{ user_item['Last Name'] }}"
+          - "{{ user_item['Email Address'] }}"
+          - "{{ user_item['gitlab.com User'] | regex_replace('@','')  }}"
+      loop: "{{ users_list.list }}"
+      loop_control:
+        loop_var: user_item
+
+    - name: Template
+      ansible.builtin.template:
+        src: "{{ templates_item.src }}"
+        dest: "{{ templates_item.dest }}"
+      loop:
+        - {src: templates/controller_organizations.yml.j2, dest: orgs_vars/superadmin/env/common/controller_organizations.d/app-test/controller_organizations.yml}
+        - {src: templates/controller_user_accounts.yml.j2, dest: "orgs_vars/superadmin/env/{{ env | default('dev') }}/controller_users.d/app-test/controller_user_accounts.yml"}
+        - {src: templates/controller_roles_orgs_users.yml.j2, dest: orgs_vars/superadmin/env/common/controller_roles.d/app-test/controller_roles_orgs_users.yml}
+        # - {src: templates/controller_roles_inventory.yml.j2, dest: orgs_vars/superadmin/env/common/controller_roles.d/app-test/controller_roles_inventory.yml}
+        # - {src: templates/controller_roles_job_templates.yml.j2, dest: orgs_vars/superadmin/env/common/controller_roles.d/app-test/controller_roles_job_templates.yml}
+        # - {src: templates/controller_hosts.yml.j2, dest: "orgs_vars/superadmin/env/{{ env | default('dev') }}/controller_hosts.d/aap-test/controller_hosts.yml"}
+      loop_control:
+        loop_var: templates_item
+...
+####
+# Running examples:
+#### Using ansible-playbook
+# ansible-playbook -i inventory -l pre controller_users_creation.yml  -e '{env: pre}'
+# ansible-playbook -i inventory -l pro controller_users_creation.yml  -e '{env: pro}'
+#### Using ansible-navigator
+# ansible-navigator run controller_users_creation.yml -i inventory -l pre -m stdout --eei quay.io/automationiberia/aap/ee-casc -e '{env: pre}' --vault-password-file .vault_password
+# ansible-navigator run controller_users_creation.yml -i inventory -l pro -m stdout --eei quay.io/automationiberia/aap/ee-casc -e '{env: pro}' --vault-password-file .vault_password
+####

@@ -1,0 +1,17 @@
+---
+controller_settings:
+  - name: DEFAULT_PROJECT_UPDATE_TIMEOUT
+    value: 0
+  - name: DEFAULT_INVENTORY_UPDATE_TIMEOUT
+    value: 0
+  - name: DEFAULT_JOB_TIMEOUT
+    value: 0
+  - name: MAX_FORKS
+    value: 200
+#   - name: AWX_ISOLATION_SHOW_PATHS
+#     value: "['/tmp', '/mnt/backup']"
+#   - name: AWX_TASK_ENV
+#     value:
+#       ENVIRONMENT_VAR1: "VAR1_VALUE"
+#       ENVIRONMENT_VAR2: "VAR2_VALUE"
+...

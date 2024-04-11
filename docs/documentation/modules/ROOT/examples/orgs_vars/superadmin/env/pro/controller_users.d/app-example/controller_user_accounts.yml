@@ -1,0 +1,18 @@
+---
+controller_user_accounts: []
+#   - username: "user1"
+#     password: "pasword-pro-user1"
+#     email: "user1@lab.example.com"
+#     firstname: "User1"
+#     lastname: "Team1"
+#     is_auditor: False
+#     is_superuser: False
+#
+#   - username: "user2"
+#     password: "pasword-pro-user2"
+#     email: "user1@lab.example.com"
+#     firstname: "User2"
+#     lastname: "Team2"
+#     is_auditor: False
+#     is_superuser: False
+...

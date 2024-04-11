@@ -1,0 +1,75 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    mailfrom: "email@lab.example.com (Controller Admin)"
+    smtprelay: "smtp.corp.lab.example.com"
+    smtpport: 25
+    fixed_receivers:
+      - "Name1 LastName1 <name1.lastname1@lab.example.com>"
+      - "Name2 LastName1 <name2.lastname2@lab.example.com>"
+      - "Name3 LastName1 <name3.lastname3@lab.example.com>"
+  tasks:
+    - set_fact:
+        entorno_dev: "{{ lookup('file', 'orgs_vars/superadmin/env/dev/controller_users.d/app-example/controller_user_accounts.yml') | from_yaml }}"
+        entorno_pro: "{{ lookup('file', 'orgs_vars/superadmin/env/pro/controller_users.d/app-example/controller_user_accounts.yml') | from_yaml }}"
+
+    - delegate_to: localhost
+      loop: "{{ entorno_dev.controller_user_accounts | zip(entorno_pro.controller_user_accounts) | list }}"
+      loop_control:
+        loop_var: current_receiver
+      community.general.mail:
+        host: "{{ smtprelay }}"
+        port: "{{ smtpport }}"
+        secure: "starttls"
+        from: "{{ mailfrom }}"
+        subject: "Instructions for {{ current_receiver.0.firstname }} {{ current_receiver.0.lastname }}"
+        to: "{{ current_receiver.0.email }}"
+        cc: "{{ fixed_receivers }}"
+        subtype: html
+        body: |-
+          <!doctype html>
+          <html>
+            <head>
+              <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+              <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+              <title>Instructions for {{ current_receiver.0.firstname }} {{ current_receiver.0.lastname }}</title>
+            </head>
+            <body>
+              Hello {{ current_receiver.0.firstname }} {{ current_receiver.0.lastname }},<br/><br/>
+
+              The Team (we) will be available at the following Google Meet event to attend your doubts or help you where you need:<br/>
+
+              <p style="margin-left:30px;">
+                CasC - AAP<br/>
+                Wednesday, November 30 · 10:00am – 5:00pm<br/>
+                Google Meet joining info<br/>
+                Video call link: https://meet.google.com/event-identification<br/>
+                Or dial: ‪(ES) +34 xxx xxx xxx‬ PIN: ‪xxx xxx xxx‬#<br/>
+                More phone numbers: https://tel.meet/event-identification?pin=1234567890<br/>
+                Or join via SIP: sip:1234567890123@gmeet.lab.example.com<br/>
+              </p>
+
+              Here you will find the instructions for your environment (<font style="color:red">The lab environment will be available till Friday 2nd</font>):<br/>
+              <p style="margin-left:30px">
+                <a href="https://gitlab.com/casc_{{ current_receiver.0.username }}">
+                  https://gitlab.com/casc_{{ current_receiver.0.username }}
+                </a><br/>
+              </p>
+
+              Your credentials to connect to your Red Hat Automation Controller instance follows:<br/>
+                <li><b>Dev Environment:</b>&nbsp;
+                  controller-dev-ansible-automation-platform.apps.cluster-2drjc.2drjc.sandbox2634.opentlc.com
+                  <pre>{{ current_receiver.0.username }} / {{ current_receiver.0.password }}</pre></li>
+                <li><b>Pro Environment:</b>&nbsp;
+                  controller-prd-ansible-automation-platform.apps.cluster-2drjc.2drjc.sandbox2634.opentlc.com
+                  <pre>{{ current_receiver.0.username }} / {{ current_receiver.1.password }}</pre></li>
+
+              You can find a video with the explanation of this CasC at Youtube: https://www.youtube.com/watch?v=1IYQ8rYlKFI&t=3139s<br/><br/>
+
+              Have a good day!!!<br/>
+              CasC Team
+            </body>
+          </html>
+...

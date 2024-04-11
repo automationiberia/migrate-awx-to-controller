@@ -1,0 +1,10 @@
+---
+controller_roles:
+{% for users_item in users_list.list %}
+  - user: "{{ users_item['gitlab.com User'] | regex_replace('@','') }}"
+    job_templates:
+      - "{{ orgs | default('superadmin') }} Gitlab Webhook Creation"
+      - "{{ orgs | default('superadmin') }} Gitlab Project Creation"
+    role: execute
+{% endfor %}
+...

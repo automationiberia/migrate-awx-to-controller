@@ -1,0 +1,5 @@
+---
+controller_organizations:
+  - name: "{{ orgs }}"
+    description: "Organization for objects that requiere superadmin powers"
+...

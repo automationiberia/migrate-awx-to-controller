@@ -1,0 +1,5 @@
+---
+collections:
+  - name: infra.controller_configuration
+  - name: automationiberia.casc_setup
+...

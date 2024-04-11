@@ -1,0 +1,12 @@
+name: controller-casc-cd
+title:  Automation Controller configuration Continuous Deployment with CasC
+version: master
+asciidoc:
+  attributes:
+    source-language: asciidoc@
+    xrefstyle: short@
+    page-toclevels: 3
+nav:
+  - modules/ROOT/nav.adoc
+
+start_page: ROOT:index.adoc

@@ -1,0 +1,12 @@
+---
+controller_user_accounts:
+{% for users_item in users_list.list %}
+- username: "{{ users_item['gitlab.com User'] | regex_replace('@','')}}"
+  password: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters,digits') }}"
+  email: "{{ users_item['Email Address'] }}"
+  firstname: "{{ users_item['First Name'] }}"
+  lastname: "{{ users_item['Last Name'] }}"
+  is_auditor: False
+  is_superuser: False
+{% endfor %}
+...

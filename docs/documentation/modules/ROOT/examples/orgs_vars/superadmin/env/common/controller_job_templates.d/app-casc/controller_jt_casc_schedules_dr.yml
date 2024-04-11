@@ -1,0 +1,49 @@
+---
+controller_templates:
+  - name: "{{ orgs }} CasC Ctrl Schedules Enable Disable"
+    description: "Template to active/deactive schedules depend on which site is active"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} CasC Data"
+    inventory: "{{ orgs }} Controller"
+    playbook: "casc_ctrl_enable_disable_schedules.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+      controller_schedules_exclude_list: !unsafe "{{ controller_schedules_exclude_list_string.split('\n') }}"
+      query_controller_api_max_objects: 10000
+    execution_environment: "ee-casc"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} Survey_Schedules_Enable_Disable'
+      description: 'Survey_Gitlab_Project_Creation'
+      spec:
+        - question_name: "Controller schedules list to exclude"
+          description: "list to exclude schedules to configure if are enabled or not"
+          required: true
+          type: textarea
+          variable: controller_schedules_exclude_list_string
+          min: 0
+          max: 1024
+          default: "Cleanup Activity Schedule\nCleanup Expired OAuth 2 Tokens\nCleanup Expired Sessions\nCleanup Job Schedule"
+          new_question: true
+
+        - question_name: "Controller schedules pattern to exclude"
+          description: "Pattern to exclude schedules to configure if are enabled or not"
+          required: true
+          type: text
+          variable: "controller_schedules_exclude_pattern"
+          default: "^[a-zA-Z ]*(CasC_Objects_(?:Cleanup|Creation))"
+          min: 0
+          max: 60
+          new_question: true
+...

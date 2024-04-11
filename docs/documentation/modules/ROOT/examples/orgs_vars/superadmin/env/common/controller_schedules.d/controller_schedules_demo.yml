@@ -1,0 +1,13 @@
+---
+controller_schedules: []
+#   - name: "{{ orgs }} CasC_Objects_Active_Passive"
+#     description: CasC_Ojbects_Cleanup
+#     unified_job_template: "{{ orgs }} JT_Dummy_Playbook_Helloworld"
+#     rrule: DTSTART;TZID=Europe/Madrid:20220127T163000 RRULE:INTERVAL=1;FREQ=DAILY
+#     enabled: "{{ schedule_is_enabled | default(false) }}"
+#     extra_data:
+#       ansible_python_interpreter: /usr/bin/python3
+#       ansible_async_dir: /home/runner/.ansible_async/
+#       env: "{{ env }}"
+#     organization: "{{ orgs }}"
+...

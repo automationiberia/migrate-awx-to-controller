@@ -1,0 +1,52 @@
+---
+controller_templates:
+  - name: "{{ orgs }} {{ env }} New Organization Objects"
+    description: "Template to create new organization objects in Org {{ orgs }}"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    playbook: "new_project.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: false
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    execution_environment: "ee-casc"
+    survey_enabled: True
+    survey_spec:
+      name: '{{ orgs }} {{ env }} Survey New Organization Objects'
+      description: 'Survey New Organization Objects'
+      spec:
+        - question_name: Organization name
+          required: true
+          type: text
+          variable: organization_name
+          min: 0
+          max: 80
+          default: ""
+          new_question: true
+
+        - question_name: Organization description
+          required: true
+          type: text
+          variable: organization_desc
+          min: 0
+          max: 1024
+          default: ""
+          new_question: true
+
+        - question_name: Admin user
+          required: true
+          type: text
+          variable: admin_user
+          min: 0
+          max: 80
+          default: ""
+          new_question: true
+...

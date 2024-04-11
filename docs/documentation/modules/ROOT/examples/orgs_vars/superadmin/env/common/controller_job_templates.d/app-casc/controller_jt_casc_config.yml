@@ -1,0 +1,24 @@
+---
+controller_templates:
+  - name: "{{ orgs }} {{ env }} CasC Ctrl Config"
+    description: "Template to deploy Controller objects in Org {{ orgs }}"
+    organization: "{{ orgs }}"
+    project: "{{ orgs }} {{ env }} CasC Data"
+    inventory: "{{ orgs }} {{ env }} Controller"
+    playbook: "casc_ctrl_config.yml"
+    job_type: run
+    fact_caching_enabled: false
+    credentials:
+      - "{{ orgs }} {{ env }} AAP Credential"
+      - "{{ orgs }} {{ env }} Vault Credential"
+      - "{{ orgs }} {{ env }} GitLab API Token"
+    concurrent_jobs_enabled: true
+    ask_scm_branch_on_launch: true
+    ask_tags_on_launch: true
+    ask_verbosity_on_launch: true
+    ask_variables_on_launch: true
+    extra_vars:
+      ansible_python_interpreter: /usr/bin/python3
+      ansible_async_dir: /home/runner/.ansible_async/
+    execution_environment: "ee-casc"
+...

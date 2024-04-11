@@ -1,0 +1,11 @@
+---
+controller_roles: []
+#   - user: "user1"
+#     organizations:
+#       - "casc_org1"
+#     role: admin
+#   - user: "user2"
+#     organizations:
+#       - "casc_org2"
+#     role: admin
+...

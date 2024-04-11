@@ -1,0 +1,85 @@
+---
+stages:
+  - lint
+  - check
+  - prepare
+  - release
+
+yamllint:
+  stage: lint
+  image: quay.io/automationiberia/casc/ee-casc:latest
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+  script:
+    - yamllint -c ./.yamllint.yml .
+
+check_names:
+  stage: check
+  # variables:
+  #   CI_DEBUG_TRACE: "true"
+  image: quay.io/automationiberia/casc/ee-casc:latest
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_COMMIT_BRANCH'
+  script:
+    - ansible-galaxy collection install community.general
+    - ansible-playbook check_playbook.yml
+
+generate_tag:
+  stage: prepare
+  image: registry.gitlab.com/gitlab-org/release-cli
+  tags:
+    - casc
+    - controller-group
+  rules:
+    - if: $CI_COMMIT_MESSAGE =~ /First Commit/
+      when: never
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - VERSION
+      changes:
+        - VERSION
+  script:
+    - echo "TAG=$(cat VERSION)" > tag.env
+  artifacts:
+    reports:
+      dotenv: tag.env
+
+auto-release-master:
+  image: registry.gitlab.com/gitlab-org/release-cli
+  tags:
+    - casc
+    - controller-group
+  needs:
+    - job: generate_tag
+      artifacts: true
+  stage: release
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      exists:
+        - VERSION
+      changes:
+        - VERSION
+  script:
+    - echo "Release $TAG"
+  release:
+    name: "Release $TAG"
+    description: "Created using the release-cli $EXTRA_DESCRIPTION"
+    tag_name: v$TAG
+    ref: $CI_COMMIT_SHA
+...

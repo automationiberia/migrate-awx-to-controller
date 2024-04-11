@@ -1,0 +1,7 @@
+---
+controller_instance_groups:
+  - name: INSTANCE_1
+    instances:
+      - controller.host.first.fqdn
+      - controller.host.second.fqdn
+...

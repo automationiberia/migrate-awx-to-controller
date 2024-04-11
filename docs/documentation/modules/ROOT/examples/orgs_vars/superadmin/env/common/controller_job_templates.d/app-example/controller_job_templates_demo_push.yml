@@ -1,0 +1,41 @@
+---
+controller_templates: []
+#   - name: "{{ orgs }} JT_Dummy_Playbook_Helloworld"
+#     description: "Playbook to test flows, just helloworld"
+#     organization: "{{ orgs }}"
+#     project: "{{ orgs }} Dummy_Playbooks"
+#     inventory: "{{ orgs }} Controller"
+#     playbook: "helloworld.yml"
+#     job_type: run
+#     concurrent_jobs_enabled: true
+#     ask_variables_on_launch: true
+#     execution_environment: "ee-casc"
+#
+#   - name: "{{ orgs }} JT_Dummy_Playbook_ReadOnly"
+#     description: "Playbook to test flows, shows server"
+#     organization: "{{ orgs }}"
+#     project: "{{ orgs }} Dummy_Playbooks"
+#     inventory: "{{ orgs }} Controller"
+#     playbook: "readonly-playbooks.yml"
+#     job_type: run
+#     instance_groups:
+#       - Container_Groups_Instance
+#     concurrent_jobs_enabled: true
+#     execution_environment: "Default execution environment"
+#     survey_enabled: True
+#     survey_spec:
+#       name: 'TEST'
+#       description: 'Test'
+#       spec:
+#         - question_name: Target Host
+#           question_description: target host is required for playbook to work, this host
+#             needs to exist in the inventory
+#           required: true
+#           type: text
+#           variable: target_hosts
+#           min: 0
+#           max: 1024
+#           default: Localhost
+#           choices: ''
+#           new_question: true
+...
