@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Push the changes to create the new objects through Merge Requests :: Migrate AWX to Ansible Controller using CasC</title>
     <link rel="canonical" href="https://automationiberia.github.io/migrate-awx-to-controller/doc/main/033-regularuser-day-two-deploy-objects.html">
-    <link rel="prev" href="032-regularuser-day-two.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -71,118 +70,16 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html#_quick_introduction_to_cac">1. Introduction</a>
+    <a class="nav-link" href="020-export.html">Export data from AWX/Tower</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">2. CasC setup part 1 (to be executed by a controller admin user)</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DayZero</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_housekeeping">Housekeeping</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_ansible_inventory_file_for_the_environment">Create the ansible inventory file for the environment</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_automation_directories_structure">Create the automation directories structure</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables">Configure ansible connection to the AAP Controllers (common and per environment variables)</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_cac_playbooks">Create the CaC playbooks</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_define_controller_objects_as_code">Define Controller Objects as Code</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_commit_and_push_the_initial_version_of_cac">Commit and push the initial version of CaC</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="021-initial-dir-and-files.html#_change_the_default_branch_at_the_gitlab_repository">Change the default branch at the GitLab repository</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Day Two</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="023-superadmin-create-new-organization.html">Create New Organization</a>
-  </li>
-</ul>
-  </li>
-</ul>
+    <a class="nav-link" href="021-organize.html">Organiza the data</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">3. CasC setup part 2 (to be executed by a regular organization&#8217;s admin user)</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Day Zero</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+    <a class="nav-link" href="022-fill-credentials.html">Fill in the sensitive data</a>
   </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_clone_the_repository_and_create_a_new_branch">Clone the newly assigned GitLab Repository</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the .vault_password file</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_to_connect_to_the_controller_for_day_zero">Edit credentials to connect to the controller for day zero</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_objects">Edit credentials objects</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_check_the_inventory_file">Check the inventory file</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the <code>.vault_password</code> file</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc">Launch ansible-navigator from CLI to setup day-zero of CasC</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_push_the_changes">Push the changes</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch">Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</a>
-  </li>
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="031-regularuser-day-zero.html#_promote_the_dev_branch_to_pro_pro_branch">Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">DayTwo</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="032-regularuser-day-two.html">Populate new organization objects</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="3">
-    <a class="nav-link" href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects</a>
-  </li>
-</ul>
-  </li>
-</ul>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="023-import.html">Apply the configuration to the Ansible Controller</a>
   </li>
 </ul>
   </li>
@@ -215,9 +112,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Migrate AWX to Ansible Controller</a></li>
-    <li>3. CasC setup part 2 (to be executed by a regular organization&#8217;s admin user)</li>
-    <li>DayTwo</li>
-    <li><a href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects</a></li>
+    <li><a href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects through Merge Requests</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/automationiberia/migrate-awx-to-controller/edit/main/docs/documentation/modules/ROOT/pages/033-regularuser-day-two-deploy-objects.adoc">Edit this Page</a></div>
@@ -429,9 +324,6 @@ git push -u origin creation_new_objects</code></pre>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="032-regularuser-day-two.html">Populate new organization objects</a></span>
-</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="3">
   <div class="toc-menu"></div>
