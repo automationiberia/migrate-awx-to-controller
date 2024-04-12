@@ -22,9 +22,12 @@ It must be `ansible-builder>=3.0.0`, and can be installed with the following com
 python3 -m pip install ansible-builder>=3.0.0 --user
 ----
 
+[.Export]
 == Export all the variables to be used in the next steps
 
 The following will be used in the next steps, and are exported using `read` to avoid having sensitive information in the history of the server.
+
+IMPORTANT: These variables are undefined when you close your terminal session, so they need to be populated each time you open a new terminal.
 
 [.console-input]
 [source,console]
@@ -35,13 +38,134 @@ read -e -p ">>> AWX Hostname: " AWX_HOSTNAME
 read -e -p ">>> Validate Certs: " AWX_VALIDATE_CERTS
 read -e -p ">>> Is AAP: " IS_AAP
 read -e -p ">>> Have Constructed Inventories: " HAVE_CONSTRUCTED
+read -e -p ">>> Vault Password: " VAULT_PASSWORD
 ----
 
 == Fork and clone the GitHub repository
 
+The first step is to fork the repository and clone it to start working. The GitHub `<USERNAME>` will be used in the commands below and it must be replaced with your own username:
+
+.Fork the repository
+image::github_fork_1.png[]
+.Give it a name into your `<USERNAME>` organization
+image::github_fork_2.png[]
+.Wait for the fork process to finish
+image::github_fork_3.png[]
+.Check the repo has been successfully forked
+image::github_fork_4.png[]
+
+Clone the repository:
+[.console-input]
+[source,console]
+----
+mkdir ~/workdir && cd $_
+git clone https://github.com/<GITHUB_USERNAME>/migrate-awx-to-controller
+cd migrate-awx-to-controller
+mkdir my_vars
+----
+
+Now, the steps below can succeed.
+
 == Customize the configuration
+
+The next step is to configure the files to let the playbooks to connect to the AWX instance:
+
+[.console-input]
+[source,console]
+----
+cat > my_vars/vault-awx.yaml <<EOF
+---
+# AWX
+vault_controller_username: "${USERNAME}"
+vault_controller_password: "${PASSWORD}"
+vault_controller_hostname: "${AWX_HOSTNAME}"
+vault_controller_validate_certs: ${AWX_VALIDATE_CERTS}
+is_aap: ${IS_AAP}
+have_constructed: ${HAVE_CONSTRUCTED}
+...
+EOF
+----
+
+As this file is containing sensitive information, it needs to be encrypted using `ansible-vault`:
+
+[.console-input]
+[source,console]
+----
+echo ${VAULT_PASSWORD} > .vault-password
+ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-awx.yaml
+
+cat > my_vars/paths-awx.yaml <<EOF
+---
+# Controller Directory Path
+filetree_controller_settings: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_organizations: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_labels: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_user_accounts: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_teams: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credential_types: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credentials: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credential_input_sources: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_notifications: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_projects: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_execution_environments: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_applications: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_inventories: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_inventory_sources: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_instance_groups: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_hosts: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_groups: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_templates: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_workflow_job_templates: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_schedules: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_roles: "{{ playbook_dir }}/../configs/awx"
+
+controller_configuration_dispatcher_roles:
+  - {role: settings, var: controller_settings, tags: settings}
+  - {role: organizations, var: controller_organizations, tags: organizations}
+  - {role: labels, var: controller_labels, tags: labels}
+  - {role: users, var: controller_user_accounts, tags: users}
+  - {role: teams, var: controller_teams, tags: teams}
+  - {role: credential_types, var: controller_credential_types, tags: credential_types}
+  - {role: credentials, var: controller_credentials, tags: credentials}
+  - {role: credential_input_sources, var: controller_credential_input_sources, tags: credential_input_sources}
+  - {role: execution_environments, var: controller_execution_environments, tags: execution_environments}
+  - {role: notification_templates, var: controller_notifications, tags: notification_templates}
+  - {role: projects, var: controller_projects, tags: projects}
+  - {role: inventories, var: controller_inventories, tags: inventories}
+  - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+  - {role: inventory_source_update, var: controller_inventory_sources, tags: inventory_sources}
+  - {role: applications, var: controller_applications, tags: applications}
+  - {role: instances, var: controller_instances, tags: instances}
+  - {role: instance_groups, var: controller_instance_groups, tags: instance_groups}
+  - {role: hosts, var: controller_hosts, tags: hosts}
+  - {role: bulk_host_create, var: controller_bulk_hosts, tags: bulk_hosts}
+  - {role: groups, var: controller_groups, tags: inventories}
+  - {role: job_templates, var: controller_templates, tags: job_templates}
+  - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+  - {role: schedules, var: controller_schedules, tags: schedules}
+  - {role: roles, var: controller_roles, tags: roles}
+...
+EOF
+----
 
 == Run the exportation process
 
+[.console-input]
+[source,console]
+----
+\
+ansible-navigator run playbooks/config-controller-export.yaml \
+  -i localhost, \
+  -m stdout \
+  --eei quay.io/automationiberia/casc/ee-casc:summit24 \
+  --eev /tmp/:/tmp/ \
+  -e @vars/vault-awx.yaml \
+  --vault-password-file .vault-password \
+  -e '{
+        ansible_async_dir: /home/runner/.ansible_async/, 
+        output_path: /tmp/filetree_output,
+        organization_filter: AWX-ORG
+      }'
+----
 
 $ python3 -m pip install ansible-navigator>=3.4.2 --user
