@@ -168,4 +168,3 @@ ansible-navigator run playbooks/config-controller-export.yaml \
       }'
 ----
 
-$ python3 -m pip install ansible-navigator>=3.4.2 --user
