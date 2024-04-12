@@ -149,11 +149,23 @@ It must be <code>ansible-builder&gt;=3.0.0</code>, and can be installed with the
 </div>
 </div>
 </div>
-<div class="sect1">
+<div class="sect1 Export">
 <h2 id="_export_all_the_variables_to_be_used_in_the_next_steps"><a class="anchor" href="#_export_all_the_variables_to_be_used_in_the_next_steps"></a>2. Export all the variables to be used in the next steps</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The following will be used in the next steps, and are exported using <code>read</code> to avoid having sensitive information in the history of the server.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+These variables are undefined when you close your terminal session, so they need to be populated each time you open a new terminal.
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -162,7 +174,8 @@ read -e -p "&gt;&gt;&gt; Password: " PASSWORD
 read -e -p "&gt;&gt;&gt; AWX Hostname: " AWX_HOSTNAME
 read -e -p "&gt;&gt;&gt; Validate Certs: " AWX_VALIDATE_CERTS
 read -e -p "&gt;&gt;&gt; Is AAP: " IS_AAP
-read -e -p "&gt;&gt;&gt; Have Constructed Inventories: " HAVE_CONSTRUCTED</code></pre>
+read -e -p "&gt;&gt;&gt; Have Constructed Inventories: " HAVE_CONSTRUCTED
+read -e -p "&gt;&gt;&gt; Vault Password: " VAULT_PASSWORD</code></pre>
 </div>
 </div>
 </div>
@@ -170,18 +183,154 @@ read -e -p "&gt;&gt;&gt; Have Constructed Inventories: " HAVE_CONSTRUCTED</code>
 <div class="sect1">
 <h2 id="_fork_and_clone_the_github_repository"><a class="anchor" href="#_fork_and_clone_the_github_repository"></a>3. Fork and clone the GitHub repository</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>The first step is to fork the repository and clone it to start working. The GitHub <code>&lt;USERNAME&gt;</code> will be used in the commands below and it must be replaced with your own username:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_fork_1.png" alt="github fork 1">
+</div>
+<div class="title">Figure 1. Fork the repository</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_fork_2.png" alt="github fork 2">
+</div>
+<div class="title">Figure 2. Give it a name into your <code>&lt;USERNAME&gt;</code> organization</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_fork_3.png" alt="github fork 3">
+</div>
+<div class="title">Figure 3. Wait for the fork process to finish</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/github_fork_4.png" alt="github fork 4">
+</div>
+<div class="title">Figure 4. Check the repo has been successfully forked</div>
+</div>
+<div class="paragraph">
+<p>Clone the repository:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir ~/workdir &amp;&amp; cd $_
+git clone https://github.com/&lt;GITHUB_USERNAME&gt;/migrate-awx-to-controller
+cd migrate-awx-to-controller
+mkdir my_vars</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, the steps below can succeed.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_customize_the_configuration"><a class="anchor" href="#_customize_the_configuration"></a>4. Customize the configuration</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>The next step is to configure the files to let the playbooks to connect to the AWX instance:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; my_vars/vault-awx.yaml &lt;&lt;EOF
+---
+# AWX
+vault_controller_username: "${USERNAME}"
+vault_controller_password: "${PASSWORD}"
+vault_controller_hostname: "${AWX_HOSTNAME}"
+vault_controller_validate_certs: ${AWX_VALIDATE_CERTS}
+is_aap: ${IS_AAP}
+have_constructed: ${HAVE_CONSTRUCTED}
+...
+EOF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As this file is containing sensitive information, it needs to be encrypted using <code>ansible-vault</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo ${VAULT_PASSWORD} &gt; .vault-password
+ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-awx.yaml
 
+cat &gt; my_vars/paths-awx.yaml &lt;&lt;EOF
+---
+# Controller Directory Path
+filetree_controller_settings: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_organizations: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_labels: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_user_accounts: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_teams: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credential_types: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credentials: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credential_input_sources: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_notifications: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_projects: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_execution_environments: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_applications: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_inventories: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_inventory_sources: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_instance_groups: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_hosts: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_groups: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_templates: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_workflow_job_templates: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_schedules: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_roles: "{{ playbook_dir }}/../configs/awx"
+
+controller_configuration_dispatcher_roles:
+  - {role: settings, var: controller_settings, tags: settings}
+  - {role: organizations, var: controller_organizations, tags: organizations}
+  - {role: labels, var: controller_labels, tags: labels}
+  - {role: users, var: controller_user_accounts, tags: users}
+  - {role: teams, var: controller_teams, tags: teams}
+  - {role: credential_types, var: controller_credential_types, tags: credential_types}
+  - {role: credentials, var: controller_credentials, tags: credentials}
+  - {role: credential_input_sources, var: controller_credential_input_sources, tags: credential_input_sources}
+  - {role: execution_environments, var: controller_execution_environments, tags: execution_environments}
+  - {role: notification_templates, var: controller_notifications, tags: notification_templates}
+  - {role: projects, var: controller_projects, tags: projects}
+  - {role: inventories, var: controller_inventories, tags: inventories}
+  - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+  - {role: inventory_source_update, var: controller_inventory_sources, tags: inventory_sources}
+  - {role: applications, var: controller_applications, tags: applications}
+  - {role: instances, var: controller_instances, tags: instances}
+  - {role: instance_groups, var: controller_instance_groups, tags: instance_groups}
+  - {role: hosts, var: controller_hosts, tags: hosts}
+  - {role: bulk_host_create, var: controller_bulk_hosts, tags: bulk_hosts}
+  - {role: groups, var: controller_groups, tags: inventories}
+  - {role: job_templates, var: controller_templates, tags: job_templates}
+  - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+  - {role: schedules, var: controller_schedules, tags: schedules}
+  - {role: roles, var: controller_roles, tags: roles}
+...
+EOF</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_run_the_exportation_process"><a class="anchor" href="#_run_the_exportation_process"></a>5. Run the exportation process</h2>
 <div class="sectionbody">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">\
+ansible-navigator run playbooks/config-controller-export.yaml \
+  -i localhost, \
+  -m stdout \
+  --eei quay.io/automationiberia/casc/ee-casc:summit24 \
+  --eev /tmp/:/tmp/ \
+  -e @vars/vault-awx.yaml \
+  --vault-password-file .vault-password \
+  -e '{
+        ansible_async_dir: /home/runner/.ansible_async/,
+        output_path: /tmp/filetree_output,
+        organization_filter: AWX-ORG
+      }'</code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>$ python3 -m pip install ansible-navigator&gt;=3.4.2 --user</p>
 </div>
