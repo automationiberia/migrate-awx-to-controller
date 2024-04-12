@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Create objects manually and reconciliate :: Migrate AWX to Ansible Controller using CasC</title>
+    <link rel="canonical" href="https://automationiberia.github.io/migrate-awx-to-controller/doc/main/034-regularuser-day-two-manual-change.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img
+          src="../../_/img/header_logo.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" href="https://automationiberia.github.io/migrate-awx-to-controller">Migrate AWX to Ansible Controller using CasC</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Books</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">CheatSheets</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">CheatSheet A</a>
+            <a class="navbar-item" href="#">CheatSheet B</a>
+            <a class="navbar-item" href="#">CheatSheet C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Upcoming Events</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Event A</a>
+            <a class="navbar-item" href="#">Event B</a>
+            <a class="navbar-item" href="#">Event C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Tutorial A</a>
+            <a class="navbar-item" href="#">Tutorial B</a>
+            <a class="navbar-item" href="#">Tutorial C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="doc" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Migrate AWX to Ansible Controller</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html#_quick_introduction_to_cac">1. Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">2. CasC setup part 1 (to be executed by a controller admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DayZero</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_housekeeping">Housekeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_ansible_inventory_file_for_the_environment">Create the ansible inventory file for the environment</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_automation_directories_structure">Create the automation directories structure</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables">Configure ansible connection to the AAP Controllers (common and per environment variables)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_cac_playbooks">Create the CaC playbooks</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_define_controller_objects_as_code">Define Controller Objects as Code</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_commit_and_push_the_initial_version_of_cac">Commit and push the initial version of CaC</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_change_the_default_branch_at_the_gitlab_repository">Change the default branch at the GitLab repository</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Two</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="023-superadmin-create-new-organization.html">Create New Organization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3. CasC setup part 2 (to be executed by a regular organization&#8217;s admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Zero</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_clone_the_repository_and_create_a_new_branch">Clone the newly assigned GitLab Repository</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the .vault_password file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_to_connect_to_the_controller_for_day_zero">Edit credentials to connect to the controller for day zero</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_objects">Edit credentials objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_check_the_inventory_file">Check the inventory file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the <code>.vault_password</code> file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc">Launch ansible-navigator from CLI to setup day-zero of CasC</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_push_the_changes">Push the changes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch">Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_promote_the_dev_branch_to_pro_pro_branch">Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DayTwo</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="032-regularuser-day-two.html">Populate new organization objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Migrate AWX to Ansible Controller</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Migrate AWX to Ansible Controller</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Migrate AWX to Ansible Controller</a></li>
+    <li><a href="034-regularuser-day-two-manual-change.html">Create objects manually and reconciliate</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/automationiberia/migrate-awx-to-controller/edit/main/docs/documentation/modules/ROOT/pages/034-regularuser-day-two-manual-change.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Create objects manually and reconciliate</h1>
+<div class="sect1">
+<h2 id="_create_objects_by_gui"><a class="anchor" href="#_create_objects_by_gui"></a>1. Create objects by GUI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Go to #ToDo URL # and create a new JT manually</p>
+</div>
+<div class="paragraph">
+<p>Go to #ToDo URL # and create a new Inventory manually</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reconciliate_to_apply_the_desired_state_defined_as_code"><a class="anchor" href="#_reconciliate_to_apply_the_desired_state_defined_as_code"></a>2. Reconciliate to apply the Desired State defined as code</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Go to <mark>ToDo URL JT</mark> and launch Desired State JT</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_check_manually_objects_were_removed"><a class="anchor" href="#_check_manually_objects_were_removed"></a>3. Check manually objects were removed</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Go to <mark>ToDo URL JT</mark> and check manually JT was removed</p>
+</div>
+<div class="paragraph">
+<p>Go to <mark>ToDo URL inventory</mark> and check manually JT was removed</p>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

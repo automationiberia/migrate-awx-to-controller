@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Day-0: Deploy the SUPERADMIN organization :: Migrate AWX to Ansible Controller using CasC</title>
+    <link rel="canonical" href="https://automationiberia.github.io/migrate-awx-to-controller/doc/main/022-deploy-superadmin-objects.html">
+    <link rel="prev" href="021-initial-dir-and-files.html#_pre_requisites">
+    <link rel="next" href="023-superadmin-create-new-organization.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img
+          src="../../_/img/header_logo.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" href="https://automationiberia.github.io/migrate-awx-to-controller">Migrate AWX to Ansible Controller using CasC</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Books</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">CheatSheets</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">CheatSheet A</a>
+            <a class="navbar-item" href="#">CheatSheet B</a>
+            <a class="navbar-item" href="#">CheatSheet C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Upcoming Events</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Event A</a>
+            <a class="navbar-item" href="#">Event B</a>
+            <a class="navbar-item" href="#">Event C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Tutorial A</a>
+            <a class="navbar-item" href="#">Tutorial B</a>
+            <a class="navbar-item" href="#">Tutorial C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="doc" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Migrate AWX to Ansible Controller</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html#_quick_introduction_to_cac">1. Introduction</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">2. CasC setup part 1 (to be executed by a controller admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DayZero</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_housekeeping">Housekeeping</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_ansible_inventory_file_for_the_environment">Create the ansible inventory file for the environment</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_automation_directories_structure">Create the automation directories structure</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_configure_ansible_connection_to_the_aap_controllers_common_and_per_environment_variables">Configure ansible connection to the AAP Controllers (common and per environment variables)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_create_the_cac_playbooks">Create the CaC playbooks</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_define_controller_objects_as_code">Define Controller Objects as Code</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_commit_and_push_the_initial_version_of_cac">Commit and push the initial version of CaC</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="021-initial-dir-and-files.html#_change_the_default_branch_at_the_gitlab_repository">Change the default branch at the GitLab repository</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Two</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="023-superadmin-create-new-organization.html">Create New Organization</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">3. CasC setup part 2 (to be executed by a regular organization&#8217;s admin user)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day Zero</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_export_all_the_variables_to_be_used_in_the_next_steps">Export all the variables to be used in the next steps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_clone_the_repository_and_create_a_new_branch">Clone the newly assigned GitLab Repository</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the .vault_password file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_to_connect_to_the_controller_for_day_zero">Edit credentials to connect to the controller for day zero</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_edit_credentials_objects">Edit credentials objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_check_the_inventory_file">Check the inventory file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_creating_the_vault_password_file">Creating the <code>.vault_password</code> file</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_launch_ansible_navigator_from_cli_to_setup_day_zero_of_casc">Launch ansible-navigator from CLI to setup day-zero of CasC</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_push_the_changes">Push the changes</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_pomote_the_casc_dev_day0_branch_to_dev_dev_branch">Pomote the <code>casc-dev-day0</code> branch to dev (<code>dev</code> branch)</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="031-regularuser-day-zero.html#_promote_the_dev_branch_to_pro_pro_branch">Promote the <code>dev</code> branch to pro (<code>pro</code> branch)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">DayTwo</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="032-regularuser-day-two.html">Populate new organization objects</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="033-regularuser-day-two-deploy-objects.html">Push the changes to create the new objects</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Migrate AWX to Ansible Controller</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Migrate AWX to Ansible Controller</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Migrate AWX to Ansible Controller</a></li>
+    <li>2. CasC setup part 1 (to be executed by a controller admin user)</li>
+    <li>DayZero</li>
+    <li><a href="022-deploy-superadmin-objects.html">Deploy the SuperAdmin objects</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/automationiberia/migrate-awx-to-controller/edit/main/docs/documentation/modules/ROOT/pages/022-deploy-superadmin-objects.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Day-0: Deploy the SUPERADMIN organization</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once all the objects are already configured at the GitLab repository, they can be deployed for the first time into the target Automation Controller.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_the_objects_in_the_controller"><a class="anchor" href="#_create_the_objects_in_the_controller"></a>1. Create the objects in the Controller</h2>
+<div class="sectionbody">
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>One important thing to remember is to add the public key part of
+the private key configured at
+<code>orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_scm.yml</code>
+to the GitLab repositories used by the configured projects. See the <a href="021-initial-dir-and-files.html#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup" class="xref page">(dev) Source Control Manager and GitLab API Token Credentials will let the Job Templates to connect to the GitLab repository/group</a>
+021-initial-dir-and-files.adoc#_source_control_manager_and_gitlab_api_token_credentials_will_let_the_job_templates_to_connect_to_the_gitlab_repositorygroup</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Make sure that the required environment variables are properly set. See the <a href="021-initial-dir-and-files.html#_export_all_the_variables_to_be_used_in_the_next_steps" class="xref page">Export all the variables to be used in the next steps</a></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the configuration playbook to create the defined objects in the target AAP Controllers, for both DEV and PRO environments, running the following commands:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: ${SUPERADMIN_ORG}, dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc:latest --vault-password-file .vault_password --pull-arguments=--tls-verify=false</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The following requirements must be taken in consideration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>ansible-navigator</code> command must be available to run the playbook</p>
+</li>
+<li>
+<p>An Execution Environment with all the required collections must exist and be available to be pulled and used:</p>
+<details>
+<summary class="title">See the <code>requirements.yaml</code> contents</summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">//include::../examples/collections/requirements.yaml[]</code></pre>
+</div>
+</div>
+</div>
+</details>
+</li>
+<li>
+<p>The target AAP Controller must be available when running the previous command</p>
+</li>
+<li>
+<p>The file <code>.vault_password</code> used in the previous command, must exist and contain the vault password needed to access the vaulted variables</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The file <code>inventory</code> must be filled accordingly to the corresponding <code>group_vars</code> configuration file to reach the correct Automation Controller instance</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_the_gitlab_webhooks"><a class="anchor" href="#_configure_the_gitlab_webhooks"></a>2. Configure the GitLab Webhooks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the objects has been created at the Ansible Automation Controller, there are two options to configure the GitLab Webhook to run the Continuous Integration for the CasC:</p>
+</div>
+<div class="sect2">
+<h3 id="_dev_environment"><a class="anchor" href="#_dev_environment"></a>2.1. Dev environment</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_automatically"></a>Automatically</p>
+</li>
+<li>
+<p><a id="tabset1_manually"></a>Manually</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_automatically">
+<div class="paragraph">
+<p>A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the <code>GitLab API Token</code> credential defined and vaulted in the configuration files (take a look at <code>orgs_vars/${SUPERADMIN_ORG}/env/dev/controller_credentials.d/controller_credentials_gitlab_api_token.yml</code>):</p>
+</div>
+<div class="paragraph">
+<p>Launch the Job Template called <code>{{ orgs }} dev Gitlab Webhook Creation</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_launch_dev.png" alt="configure webhook launch dev">
+</div>
+<div class="title">Figure 1. Configure Webhook Launch</div>
+</div>
+<div class="paragraph">
+<p>Configure the following webhook trigger parameters for the <code>dev</code> environment:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_launch_params_dev.1.png" alt="configure webhook launch params dev.1">
+</div>
+<div class="title">Figure 2. Configure Webhook Trigger Parameters</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_launch_params_dev.2.png" alt="configure webhook launch params dev.2">
+</div>
+<div class="title">Figure 3. Configure Webhook Params</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The parameter <code>(Workflow) Job Template Name</code> is something similar to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">&lt;ORGNAME&gt; dev CasC Ctrl CD Webhook Trigger</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>After running the Job, the webhook will already be configured at the git repository for the specified organization, which will point to the selected Job Template in the selected Automation Controller.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_result_dev.png" alt="configure webhook result dev">
+</div>
+<div class="title">Figure 4. Configure Webhook Result</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_manually">
+<div class="paragraph">
+<p>Following steps must be performed to configure the GitLab Webhook to run the Continuous Integration for the CasC in the specified organization:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Get the <code>id</code> number of the Job Template which will receive the webhook calls:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_get_config_dev.png" alt="configure webhook get config dev">
+</div>
+<div class="title">Figure 5. Configure Webhook Get Config</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Url displayed in the (Workflow) Job Template configuration is using the ID to identify the (Workflow) Job Template, but it&#8217;s not recommended to use this identifier, as it can change if the configuration is applied to different AAP instances. Instead, the <code>named_url</code> from the API may be used.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_named_url_dev.png" alt="configure webhook named url dev">
+</div>
+<div class="title">Figure 6. Configure Webhook Named URL</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Set the webhook information at the GitLab repository:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_set_info_dev.png" alt="configure webhook set info dev">
+</div>
+<div class="title">Figure 7. Configure webhook Set Info</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pro_environment"><a class="anchor" href="#_pro_environment"></a>2.2. Pro environment</h3>
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset2_automatically"></a>Automatically</p>
+</li>
+<li>
+<p><a id="tabset2_manually"></a>Manually</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset2_automatically">
+<div class="paragraph">
+<p>A Job Template and a Project have been created to automatically configure the GitLab Webhook making use of the <code>GitLab API Token</code> credential defined and vaulted in the configuration files (take a look at [<code>orgs_vars/${SUPERADMIN_ORG}/env/pro/controller_credentials.d/controller_credentials_gitlab_api_token.yml</code>](orgs_vars/superadmin/env/pro/controller_credentials.d/controller_credentials_gitlab_api_token.yml)):</p>
+</div>
+<div class="paragraph">
+<p>Launch the Job Template called <code>{{ orgs }} pro Gitlab Webhook Creation</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_launch_pro.png" alt="configure webhook launch pro">
+</div>
+<div class="title">Figure 8. Configure Webhook Launch</div>
+</div>
+<div class="paragraph">
+<p>Configure the following webhook trigger parameters for the <code>dev</code> environment:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_launch_params_pro.1.png" alt="configure webhook launch params pro.1">
+</div>
+<div class="title">Figure 9. Configure Webhook Trigger Parameters</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_launch_params_pro.2.png" alt="configure webhook launch params pro.2">
+</div>
+<div class="title">Figure 10. Configure Webhook Params</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The parameter <code>(Workflow) Job Template Name</code> is something similar to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">&lt;ORGNAME&gt; pro CasC Ctrl CD Webhook Trigger</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>After running the Job, the webhook will already be configured at the git repository for the specified organization, which will point to the selected Job Template in the selected Automation Controller.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_result_pro.png" alt="configure webhook result pro">
+</div>
+<div class="title">Figure 11. Configure Webhook Result</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset2_manually">
+<div class="paragraph">
+<p>Following steps must be performed to configure the GitLab Webhook to run the Continuous Integration for the CasC in the specified organization:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Get the <code>id</code> number of the Job Template which will receive the webhook calls:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_get_config_pro.png" alt="configure webhook get config pro">
+</div>
+<div class="title">Figure 12. Configure Webhook Get Config</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Url displayed in the (Workflow) Job Template configuration is using the ID to identify the (Workflow) Job Template, but it&#8217;s not recommended to use this identifier, as it can change if the configuration is applied to different AAP instances. Instead, the <code>named_url</code> from the API may be used.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_named_url_pro.png" alt="configure webhook named url pro">
+</div>
+<div class="title">Figure 13. Configure Webhook Named URL</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Set the webhook information at the GitLab repository:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/configure_webhook_set_info_pro.png" alt="configure webhook set info pro">
+</div>
+<div class="title">Figure 14. Configure webhook Set Info</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_all_done"><a class="anchor" href="#_all_done"></a>3. All done</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now, all the initial configuration is done and from that moment, only pushing new commits to the <code>dev</code> branch will create or update all the objects at the Automation Controller.</p>
+</div>
+<div class="paragraph">
+<p>Follow with the <a href="023-superadmin-create-new-organization.html" class="xref page">Day-2: Create a new Organization</a> steps to create normal organizations.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="021-initial-dir-and-files.html#_pre_requisites">Pre-Requisites</a></span>
+  <span class="next"><a href="023-superadmin-create-new-organization.html">Create New Organization</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="3">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
