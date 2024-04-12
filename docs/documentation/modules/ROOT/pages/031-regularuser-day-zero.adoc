@@ -1,0 +1,468 @@
+include::_attributes.adoc[]
+
+= Regular User
+
+The SuperAdmin user has created all the objects needed for the new regular organization.
+
+The credentials to access the Automation Controller by the new regular organization's administrator account has been provided to the correct people.
+
+All the following steps will be performed by the new organization's administrator user, who also have access to the GitLab repository created to contain all the organizations' objects.
+
+All the steps described here are also available in the `README.md` file at the new organization's GitLab repository.
+
+== Export all the variables to be used in the next steps
+
+IMPORTANT: These variables are undefined when you close your terminal session, so they need to be populated each time you open a new terminal.
+
+.#Content with `<CHANGE_ME>` has to be customized#
+[.console-input]
+[source,console]
+----
+export ORGNAME='<CHANGE_ME>'
+export PROJECT_URL_CASC='<CHANGE_ME>'
+export SSH_PRIVATE_KEY_FILE='<CHANGE_ME>'
+export GITLAB_USERNAME='<CHANGE_ME>'
+export GITLAB_EMAIL='<CHANGE_ME>'
+export VAULT_PASSWORD='<CHANGE_ME>'
+# export GITLAB_API_TOKEN='<CHANGE_ME>'
+# export AAP_USER_NAME='<CHANGE_ME>'
+# export AAP_USER_PASSWORD='<CHANGE_ME>'
+# export AAP_USER_EMAIL='<CHANGE_ME>'
+# export AAP_USER_FIRSTNAME='<CHANGE_ME>'
+# export AAP_USER_LASTNAME='<CHANGE_ME>'
+# export ADMIN_DEV_PASSWORD='<CHANGE_ME>'
+# export ADMIN_PRO_PASSWORD='<CHANGE_ME>'
+----
+
+Where:
+
+* ORGNAME: Organization name
+* PROJECT_URL_CASC: Project URL (SSH format)
+* SSH_PRIVATE_KEY_FILE: the private SSH key file that corresponds to the public SSH key attached to your gitlab account (<<GITLAB_SSH_PUBLIC_KEY,see prerequisites>>).
+* GITLAB_USERNAME: GitLab user name
+* GITLAB_EMAIL: GitLab user email address
+* VAULT_PASSWORD: Ansible Vault password
+// * GITLAB_API_TOKEN: The Personal access token to let the New Organization Creation process to work as expected (must be able to create new projects into GitLab).
+// * GITLAB_API_USER: GitLab user name
+// * AAP_USER_NAME: AAP User name
+// * AAP_USER_PASSWORD: AAP User password
+// * AAP_USER_EMAIL: APP User email address
+// * AAP_USER_FIRSTNAME: APP User first name
+// * AAP_USER_LASTNAME: APP User last name
+
+== Clone the repository and create a new branch
+
+[NOTE]
+====
+All the steps could also be done creating/editing the files directly at the GitLab repository using the Web UI, but this approach is not recommended as a general option. Instead of this, use a local copy of the repository to work there.
+====
+
+////
+.Export the organization name (must be the same that repository name)
+[.console-input]
+[source,console,subs="attributes"]
+----
+read -e -p ">>> Organization Name: " ORGNAME
+----
+
+.Export the repository URL (SSH)
+[.console-input]
+[source,console,subs="attributes"]
+----
+read -e -p ">>> Git Organization URL (SSH): " GITORG
+----
+////
+
+.The first step is cloning the repository
+[.console-input]
+[source,console]
+----
+ssh-add ~/.ssh/id_rsa_gitlab
+git clone ${PROJECT_URL_CASC}
+cd ${ORGNAME}/
+git config user.email "${GITLAB_EMAIL}"
+git config user.name "${GITLAB_USERNAME}"
+git checkout -b casc-dev-day0
+----
+
+.Create a SSH key pair for GitLab:
+[%collapsible]
+======
+[[ssh-key-generation]]You can create your own SSH key for that project with the following command:
+
+[.console-input]
+[source,bash]
+----
+ssh-keygen -f id_rsa_gitlab
+----
+======
+
+.Enable an already existing SSH key the repository:
+[%collapsible]
+======
+image::configure_gitlab_add_existing_ssh_key.png[]
+image::configure_gitlab_add_existing_ssh_key_2.png[]
+image::configure_gitlab_add_existing_ssh_key_3.png[]
+======
+
+Before using CasC as a GitOps approach, it is needed to launch an initialization from CLI which it is called Day-Zero.
+
+== Creating the `.vault_password` file
+
+[.console-input]
+[source,bash]
+----
+echo "${VAULT_PASSWORD}" > .vault_password
+----
+
+== Edit credentials to connect to the controller for day zero.
+
+The default credentials for the new organization admin user are similar to the following ones:
+[source,yaml]
+----
+username: org1admin # <ORGNAME>admin
+password: initialadminpass
+----
+
+[.console-input]
+[source,bash]
+----
+vi group_vars/dev/configure_connection_controller_credentials.yml
+----
+
+[.console-input]
+[source,bash]
+----
+vi group_vars/pro/configure_connection_controller_credentials.yml
+----
+
+[.console-input]
+[source,bash]
+----
+ansible-vault encrypt --vault-password-file .vault_password \
+  group_vars/dev/configure_connection_controller_credentials.yml \
+  group_vars/pro/configure_connection_controller_credentials.yml 
+----
+
+== Edit credentials objects
+
+[.console-input]
+[source,bash]
+----
+vi orgs_vars/${ORGNAME}/env/dev/controller_credentials.d/controller_credentials.yml
+----
+
+[.console-input]
+[source,bash]
+----
+vi orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/controller_credentials.yml
+----
+
+[.console-input]
+[source,bash]
+----
+ansible-vault encrypt --vault-password-file .vault_password \
+  orgs_vars/${ORGNAME}/env/pro/controller_credentials.d/* \
+  orgs_vars/${ORGNAME}/env/dev/controller_credentials.d/*
+----
+
+== Check the inventory file
+
+[.console-input]
+[source,bash]
+----
+cat inventory
+----
+
+.Sample inventory file
+====
+[.console-input]
+[source,bash]
+----
+[dev]
+aap22dev.iam.lab
+
+[pro]
+aap22prod.iam.lab
+----
+====
+
+== Launch ansible-navigator from CLI to setup day-zero of CasC
+
+This step is needed for the day-zero, and is also useful when developing new changes, to apply them without pushing them to the GitLab repository and trigger the CaC workflow.
+
+[IMPORTANT]
+====
+If the Automation Hub where the used Execution Environment image is using a self-signed certificate, the extra argument `--pull-arguments=--tls-verify=false` will be needed to be appended to the following two commands.
+====
+
+[.console-input]
+[source,bash]
+----
+ansible-navigator run casc_ctrl_config.yml -i inventory -l dev -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: dev}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+----
+
+[.console-input]
+[source,bash]
+----
+ansible-navigator run casc_ctrl_config.yml -i inventory -l pro -e "{orgs: '${ORGNAME}', dir_orgs_vars: orgs_vars, env: pro}" -m stdout --eei quay.io/automationiberia/aap/ee-casc --vault-password-file .vault_password
+----
+
+== Push the changes
+
+[.console-input]
+[source,bash]
+----
+git status -s
+git add -A
+git commit -m "CasC day zero"
+git push origin casc-dev-day0
+----
+
+== Promote the `casc-dev-day0` branch to dev (`dev` branch)
+
+[IMPORTANT]
+====
+In order for the GitLab Actions to run successfully, a GitLab Runner must be configured for the GitLab project, following the same steps described xref:021-initial-dir-and-files.adoc#_housekeeping[here,window=_blank].
+====
+
+* Select the source branch as `casc-dev-day0` and `dev` as the destination one
++
+image::newmrtodev-0.png[New Merge Request Dev]
+
+* Fill in the merge request information
++
+image::newmrtodev-0-step2.png[Fill in the merge request information]
+
+* Approve the Merge Request.
++
+image::newmrtodev-0-step3.png[Merge the merge request]
+
+* Check that the Merge Request has triggered the CasC Job at the `DEV` Controller:
++
+image::newmrtodev-0-step4.png[CasC Jobs]
+
+== Promote the `dev` branch to pro (`pro` branch)
+
+* Select the source branch as `dev` and `pro` as the destination one
++
+image::newmrtopro.png[New Merge Request Pro]
+
+* Fill in the merge request information
++
+image::newmrtoprostep2.png[Fill in the merge request information]
+
+[WARNING]
+====
+**Be sure to write a title that have sense for the Merge Request**: The default value here is `dev`, that is not usefull at all!
+====
+
+* Approve the Merge Request.
++
+image::newmrtoprostep3.png[Merge the Merge Request]
+
+////
+### GitOps flow
+
+1. Clone the given repository:
+
+   ```
+   git clone git@gitlab.iam.lab:automationiberia/aap-cac/NewOrg.git
+
+   cd NewOrg/
+   ```
+
+2. Create a new branch from `dev` to introduce the new items:
+
+   ```
+   git checkout dev
+   git checkout -b add_info_job_template
+   ```
+
+3. Add a new Playbook and a new Job Template
+
+   File: `new_playbook1.yaml`
+   ```
+   cat > new_playbook1.yaml <<EOF
+   ---
+   - name: "Play to show the hostname"
+     hosts: all
+     tasks:
+       - name: "Show the hostname"
+         debug:
+           msg:
+             - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
+             - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
+             - "Running as user: {{ lookup('pipe', 'id') }}"
+   ...
+   EOF
+   ```
+
+   File: `new_playbook2.yaml`
+   ```
+   cat > new_playbook2.yaml <<EOF
+   ---
+   - name: "Play to show the hostname"
+     hosts: all
+     connection: local
+     tasks:
+       - name: "Show the hostname"
+         debug:
+           msg:
+             - "This server is called (from Ansible inventory):     {{ inventory_hostname }}"
+             - "This server is called (from Execution Environment): {{ lookup('pipe', 'cat /etc/hostname') }}"
+             - "Running as user: {{ lookup('pipe', 'id') }}"
+   ...
+   EOF
+   ```
+
+   File: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
+   ```
+   cat > orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml <<EOF
+   ---
+   controller_templates:
+     - name: "{{ orgs }} New Job Template"
+       description: "Template to show how to add a new JT"
+       organization: "{{ orgs }}"
+       project: "{{ orgs }} CasC_Data"
+       inventory: "{{ orgs }} Localhost"
+       playbook: "new_playbook1.yaml"
+       job_type: run
+       fact_caching_enabled: false
+       concurrent_jobs_enabled: true
+       ask_scm_branch_on_launch: true
+       extra_vars:
+         ansible_python_interpreter: /usr/bin/python3
+         ansible_async_dir: /home/runner/.ansible_async/
+       execution_environment: "ee-casc"
+   ...
+   EOF
+   ```
+
+4. Commit the changes to the new branch
+
+   ```
+   git add -A .
+   git commit -am "Add new playbook and job template to show server information"
+   git push -u origin add_info_job_template
+   ```
+
+5. Create a Merge Request to `dev` branch <a name="mrtodev"></a>
+
+   * Go to Merge Requests and create a new merge request
+     ![New merge request](images/mrtodev.png "New merge request")
+
+   * Select the source branch `add_info_job_template` and `dev` as the destination one
+     ![New merge request to dev](images/newmrtodev.png "New merge request to dev")
+
+   * Fill in the merge request information
+     ![Fill in the merge request information](images/newmrtodevstep2.png "Fill in the merge request information")
+
+   * Merge the merge request
+     ![Merge the merge request](images/newmrtodevstep3.png "Merge the merge request")
+
+   ---
+
+   The following automated process has ben executed at the Ansible Automation Controller:
+
+   ![Look at the Ansible Automation Controller's jobs](images/devworkflowjobs.png "Look at the Ansible Automation Controller's jobs")
+
+   The following diagram shows the components of the workflow:
+
+   ![Workflow Diagram](images/workflowdiagram.png "Workflow Diagram")
+
+   Of course, the new Job Template has been created:
+
+   ![New Job Template Dev](images/newjtdev.png "New Job Template Dev")
+
+6. Pomote the `dev` branch to production (`pro` branch) <a name="mrdevtopro"></a>
+
+   Similarly to the [step 5](#mrtodev), create a new Merge Request from the `dev` branch to the `pro` branch:
+
+   * Select the source branch as `dev` and `pro` as the destination one]
+     ![New Merge Request Pro](images/newmrtopro.png "New Merge Request Pro")
+
+   * Fill in the merge request information
+     ![Fill in the merge request information](images/newmrtoprostep2.png "Fill in the merge request information")
+
+     > :warning: **Be sure to write a title that have sense for the Merge Request**: The default value here is `dev`, that is not usefull at all!
+
+   ---
+
+   When the Merge Request is already merged, the new Job Template is also created in the `pro` environment:
+
+   ![New Job Template Pro](images/newjtpro.png "New Job Template Pro")
+
+7. Run the new Job Template at PRO <a name="runjtpro"></a>
+
+   Run the Job Template:
+   ![Run the JT](images/launchjtpro.png "Run the JT")
+
+   and check that it is failing:
+   ![Job Template PRO failed](images/jtprofailed.png "Job Template PRO failed")
+
+8. Rollback the PRO environment to previously working tag
+
+   To rollback the status of the controller to a previous working version, it's only needed to run the following Job Templates:
+
+   * Run the Job Template `casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff` with the previous working version:
+     ![Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff](images/rollbackddv0.2.png "Run the JT casc-twitch-demo CasC_JobTemplates_AAP_Drop_Diff")
+   * Run the Job Template `casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller` with the previous working version:
+     ![Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller](images/rollbackccv0.2.png "Run the JT casc-twitch-demo CasC_JobTemplates_AAP_CD_Config_Controller")
+
+9. Fix your playbook
+
+   ```
+   git checkout dev
+   git pull
+   git checkout -b fix_playbook
+   ```
+
+   Modify the Job Template to use the correct playbook:
+
+   `playbook: "new_playbook2.yaml"`
+
+   Updated file: `orgs_vars/NewOrg/env/common/controller_job_templates.d/new_job_template.yaml`
+   ```yaml
+   ---
+   controller_templates:
+     - name: "{{ orgs }} New Job Template"
+       description: "Template to show how to add a new JT"
+       organization: "{{ orgs }}"
+       project: "{{ orgs }} CasC_Data"
+       inventory: "{{ orgs }} Localhost"
+       playbook: "new_playbook2.yaml"
+       job_type: run
+       fact_caching_enabled: false
+       concurrent_jobs_enabled: true
+       ask_scm_branch_on_launch: true
+       extra_vars:
+         ansible_python_interpreter: /usr/bin/python3
+         ansible_async_dir: /home/runner/.ansible_async/
+       execution_environment: "ee-casc"
+   ...
+   ```
+
+   Commit and push your changes:
+
+   ```
+   git commit -am "Fix the connection method"
+   git push -u origin fix_playbook
+   ```
+
+   Create a Merge Request to `dev` branch:
+
+   * ![Create New Merge Request from `fix_playbook` to Dev](images/newmrtodev-fix_playbook.png "Create New Merge Request from `fix_playbook` to Dev")
+   * ![New Merge Request from `fix_playbook` to Dev](images/newmrtodev-fix_playbook-step2.png "New Merge Request from `fix_playbook` to Dev")
+   * ![Merge the Request](images/newmrtodev-fix_playbook-step3.png "Merge the Request")
+
+   Repeat the steps to create a new Merge Request from `dev` to `pro`, as described at [step 6](#mrdevtopro)
+
+10. Run again the new Job Template at PRO <a name="runjtpro"></a>
+
+    Run again the Job Template:
+    ![Run the JT](images/launchjtpro.png "Run the JT")
+
+    and check that it is working fine now:
+    ![Job Template PRO failed](images/jtprosuccess.png "Job Template PRO failed")
+////

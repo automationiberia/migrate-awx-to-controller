@@ -1,0 +1,37 @@
+runtime:
+  cache_dir: ./.cache/antora
+
+site:
+  title: Migrate AWX to Ansible Controller using CasC
+  url: https://automationiberia.github.io/migrate-awx-to-controller/
+  start_page: doc::index.adoc
+
+content:
+  sources:
+    # - url: ../
+    #   start_path: docs/documentation
+    #   branch: main
+    - url: /github/workspace/
+      start_path: docs/documentation
+
+asciidoc:
+  attributes:
+    release-version: master
+    page-pagination: true
+  extensions:
+    - ./lib/tab-block.js
+    - ./lib/remote-include-processor.js
+
+ui:
+  bundle:
+    url: https://github.com/redhat-scholars/course-ui/releases/download/v0.1.5/ui-bundle.zip
+    snapshot: true
+  supplemental_files:
+    - path: ./supplemental-ui
+    - path: ui.yml
+      contents: |
+        static_files: [ .nojekyll ]
+    - path: .nojekyll
+
+output:
+  dir: ./gh-pages

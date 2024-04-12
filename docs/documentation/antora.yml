@@ -1,0 +1,12 @@
+name: doc
+title: Migrate AWX to Ansible Controller
+version: main
+asciidoc:
+  attributes:
+    source-language: asciidoc@
+    xrefstyle: short@
+    page-toclevels: 3
+nav:
+  - modules/ROOT/nav.adoc
+
+start_page: ROOT:index.adoc
