@@ -1,0 +1,47 @@
+include::_attributes.adoc[]
+
+== Pre-Requisits
+
+=== ansible-navigator
+
+It must be `ansible-navigator>=3.4.2`, and can be installed with the following command:
+[.console-input]
+[source,console]
+----
+python3 -m pip install ansible-navigator>=3.4.2 --user
+----
+
+=== ansible-builder (optional)
+
+It is optional if interested in the bonus steps.
+It must be `ansible-builder>=3.0.0`, and can be installed with the following command:
+
+[.console-input]
+[source,console]
+----
+python3 -m pip install ansible-builder>=3.0.0 --user
+----
+
+== Export all the variables to be used in the next steps
+
+The following will be used in the next steps, and are exported using `read` to avoid having sensitive information in the history of the server.
+
+[.console-input]
+[source,console]
+----
+read -e -p ">>> User Name: " USERNAME
+read -e -p ">>> Password: " PASSWORD
+read -e -p ">>> AWX Hostname: " AWX_HOSTNAME
+read -e -p ">>> Validate Certs: " AWX_VALIDATE_CERTS
+read -e -p ">>> Is AAP: " IS_AAP
+read -e -p ">>> Have Constructed Inventories: " HAVE_CONSTRUCTED
+----
+
+== Fork and clone the GitHub repository
+
+== Customize the configuration
+
+== Run the exportation process
+
+
+$ python3 -m pip install ansible-navigator>=3.4.2 --user

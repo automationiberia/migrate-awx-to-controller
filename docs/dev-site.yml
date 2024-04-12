@@ -2,25 +2,34 @@ runtime:
   cache_dir: ./.cache/antora
 
 site:
-  title: Automation Controller configuration Continuous Deployment with CasC (Dev Mode)
-  url: http://localhost:3000/controller-casc-cd/index.html
-  start_page: controller-casc-cd::index.adoc
+  title: Migrate AWX to Ansible Controller using CasC
+  url: https://localhost:3000/migrate-awx-to-controller/index.html
+  start_page: doc::index.adoc
 
 content:
   sources:
-    - url: .
-      branches: HEAD
-      start_path: documentation
+    - url: ../
+      start_path: docs/documentation
+      branch: main
+
 asciidoc:
   attributes:
-    title: Automation Controller configuration Continuous Deployment with CasC (Dev Mode)
+    release-version: master
+    page-pagination: true
   extensions:
-    - ./lib/remote-include-processor.js
     - ./lib/tab-block.js
+    - ./lib/remote-include-processor.js
+
 ui:
   bundle:
-    url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.1.9/ui-bundle.zip
+    url: https://github.com/redhat-scholars/course-ui/releases/download/v0.1.5/ui-bundle.zip
     snapshot: true
-  supplemental_files: ./supplemental-ui
+  supplemental_files:
+    - path: ./supplemental-ui
+    - path: ui.yml
+      contents: |
+        static_files: [ .nojekyll ]
+    - path: .nojekyll
+
 output:
   dir: ./gh-pages

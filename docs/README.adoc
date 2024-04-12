@@ -1,1 +1,0 @@
-Check the https://automationiberia.github.io/controller-casc-cd[documentation] to get Configuration as Code working for AWX / Red Hat Ansible Tower / Red Hat Ansible Controller with a Continuous deployment approach.

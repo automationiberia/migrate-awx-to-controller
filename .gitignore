@@ -2,3 +2,4 @@
 ansible-navigator.log
 playbooks/*-artifact-*.json
 aap/execution-environment/context
+.vscode
