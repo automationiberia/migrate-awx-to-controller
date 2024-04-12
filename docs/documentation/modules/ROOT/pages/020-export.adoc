@@ -45,14 +45,22 @@ read -e -p ">>> Vault Password: " VAULT_PASSWORD
 
 The first step is to fork the repository and clone it to start working. The GitHub `<USERNAME>` will be used in the commands below and it must be replaced with your own username:
 
+====
 .Fork the repository
 image::github_fork_1.png[]
+====
+====
 .Give it a name into your `<USERNAME>` organization
 image::github_fork_2.png[]
+====
+====
 .Wait for the fork process to finish
 image::github_fork_3.png[]
+====
+====
 .Check the repo has been successfully forked
 image::github_fork_4.png[]
+====
 
 Clone the repository:
 [.console-input]
