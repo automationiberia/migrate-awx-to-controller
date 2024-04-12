@@ -5,6 +5,9 @@ on:
     branches:
       - demo_redhat
       - main
+    paths:
+      - 'docs/**'
+
 env:
   SITE_DIR: "docs/gh-pages"
 jobs:
