@@ -9,6 +9,6 @@ If there's the need of migrating the contents of an old instance of AWX or Ansib
 
 [.tile]
 * xref:020-export.adoc[Export data from AWX/Tower]
-* xref:021-organize.adoc[Organiza the data]
+* xref:021-organize.adoc[Organize the data]
 * xref:022-fill-credentials.adoc[Fill in the sensitive data]
 * xref:023-import.adoc[Apply the configuration to the Ansible Controller]
