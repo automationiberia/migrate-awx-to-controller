@@ -158,7 +158,16 @@
 </div>
 </div>
 <div class="paragraph">
-<p>These files can be used directly from the <code>/tmp/filtree-output</code> directory or, preferable, they can be copied to a git repository.</p>
+<p>These files can be used directly from the <code>/tmp/filtree-output</code> directory but, preferably, they may be copied to a git repository and populated with the missing information:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ mkdir -p configs/awx
+$ cp -a /tmp/filetree_output/* configs/awx/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The last step is to configure the path where each object type will be located at, so let&#8217;s create the following file:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
