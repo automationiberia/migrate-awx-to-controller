@@ -1,11 +1,12 @@
 = Export process
 include::_attributes.adoc[]
 
-== Pre-Requisits
+== Pre-requisites
 
 === ansible-navigator
 
-It must be `ansible-navigator>=3.4.2`, and can be installed with the following command:
+To proceed with this guide, ensure you have `ansible-navigator` version `>=3.4.2` installed. If not already installed, you can do so using the following command:
+
 [.console-input]
 [source,console]
 ----
@@ -31,8 +32,9 @@ python3 -m pip install --user --upgrade ansible-navigator>=3.4.2
 
 === ansible-builder (optional)
 
-It is optional if interested in the bonus steps.
-It must be `ansible-builder>=3.0.0`, and can be installed with the following command:
+ansible-builder is optional and required only if you are interested in the bonus steps.
+
+Ensure you have `ansible-builder` version `>=3.0.0` installed. If not already installed, you can do so using the following command:
 
 [.console-input]
 [source,console]
