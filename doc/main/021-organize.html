@@ -129,37 +129,32 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">/tmp/filetree-output
-├── ORGANIZATION-N-NAME
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">/tmp/filetree_output
+├── AWX-ORG
 │   ├── credentials
-│   │   └── ID_ORGANIZATION-N-NAME-Credential Name.yaml
+│   │   └── 2_AWX-Machine Credential.yaml
 │   ├── current_organization.yaml
 │   ├── inventories
-│   │   └── ORGANIZATION-N-NAME-Inventory Name
-│   │       ├── ID_ORGANIZATION-N-NAME-Inventory Name.yaml
+│   │   └── AWX-Inventory
+│   │       ├── 2_AWX-Inventory.yaml
 │   │       └── current_hosts.yaml
 │   ├── job_templates
-│   │   └── ID_ORGANIZATION-N-NAME-Job Template Name.yaml
+│   │   ├── 10_AWX-Helloworld.yaml
+│   │   └── 9_AWX-Read-Only-Playbook.yaml
 │   ├── projects
-│   │   └── ID_ORGANIZATION-N-NAME-Project Name.yaml
+│   │   └── 8_AWX-Project.yaml
 │   └── teams
-│       └── ID_ORGANIZATION-N-NAME-Team Name.yaml
+│       └── 1_awx-team.yaml
 ├── current_credential_types.yaml
 ├── current_instance_groups.yaml
 ├── current_settings.yaml
-├── ORGANIZATIONLESS
-│   └── users
-│       ├── admin.yaml
-│       └── ORGANIZATION-N-NAME-org-user.yaml
 ├── schedules
-│   ├── ID_Cleanup Job Schedule.yaml
-│   ├── ID_Cleanup Activity Schedule.yaml
-│   ├── ID_Cleanup Expired Sessions.yaml
-│   └── ID_Cleanup Expired OAuth 2 Tokens.yaml
-├── team_roles
-│   └── current_roles_ORGANIZATION-N-NAME-team.yaml
-└── user_roles
-    └── current_roles_ORGANIZATION-N-NAME-user.yaml</code></pre>
+│   ├── 1_Cleanup Job Schedule.yaml
+│   ├── 2_Cleanup Activity Schedule.yaml
+│   ├── 4_Cleanup Expired Sessions.yaml
+│   └── 5_Cleanup Expired OAuth 2 Tokens.yaml
+└── team_roles
+    └── current_roles_awx-team.yaml</code></pre>
 </div>
 </div>
 <div class="paragraph">
