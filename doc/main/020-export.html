@@ -268,61 +268,9 @@ EOF</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo ${VAULT_PASSWORD} &gt; .vault-password
-ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-awx.yaml
-
-cat &gt; my_vars/paths-awx.yaml &lt;&lt;EOF
----
-# Controller Directory Path
-filetree_controller_settings: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_organizations: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_labels: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_user_accounts: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_teams: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_credential_types: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_credentials: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_credential_input_sources: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_notifications: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_projects: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_execution_environments: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_applications: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_inventories: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_inventory_sources: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_instance_groups: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_hosts: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_groups: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_templates: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_workflow_job_templates: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_schedules: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_roles: "{{ playbook_dir }}/../configs/awx"
-
-controller_configuration_dispatcher_roles:
-  - {role: settings, var: controller_settings, tags: settings}
-  - {role: organizations, var: controller_organizations, tags: organizations}
-  - {role: labels, var: controller_labels, tags: labels}
-  - {role: users, var: controller_user_accounts, tags: users}
-  - {role: teams, var: controller_teams, tags: teams}
-  - {role: credential_types, var: controller_credential_types, tags: credential_types}
-  - {role: credentials, var: controller_credentials, tags: credentials}
-  - {role: credential_input_sources, var: controller_credential_input_sources, tags: credential_input_sources}
-  - {role: execution_environments, var: controller_execution_environments, tags: execution_environments}
-  - {role: notification_templates, var: controller_notifications, tags: notification_templates}
-  - {role: projects, var: controller_projects, tags: projects}
-  - {role: inventories, var: controller_inventories, tags: inventories}
-  - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
-  - {role: inventory_source_update, var: controller_inventory_sources, tags: inventory_sources}
-  - {role: applications, var: controller_applications, tags: applications}
-  - {role: instances, var: controller_instances, tags: instances}
-  - {role: instance_groups, var: controller_instance_groups, tags: instance_groups}
-  - {role: hosts, var: controller_hosts, tags: hosts}
-  - {role: bulk_host_create, var: controller_bulk_hosts, tags: bulk_hosts}
-  - {role: groups, var: controller_groups, tags: inventories}
-  - {role: job_templates, var: controller_templates, tags: job_templates}
-  - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
-  - {role: schedules, var: controller_schedules, tags: schedules}
-  - {role: roles, var: controller_roles, tags: roles}
-...
-EOF</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ echo ${VAULT_PASSWORD} &gt; .vault-password
+$ chmod 0600 .vault-password
+$ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-awx.yaml</code></pre>
 </div>
 </div>
 </div>
@@ -338,7 +286,7 @@ ansible-navigator run playbooks/config-controller-export.yaml \
   -m stdout \
   --eei quay.io/automationiberia/casc/ee-casc:summit24 \
   --eev /tmp/:/tmp/ \
-  -e @vars/vault-awx.yaml \
+  -e @my_vars/vault-awx.yaml \
   --vault-password-file .vault-password \
   -e '{
         ansible_async_dir: /home/runner/.ansible_async/,
