@@ -1,8 +1,12 @@
-= Welcome to the Workshop/Demo to migrate and AWX/Tower to Automation Controller using a Continuous Deployment approach
+= Next-Gen Infrastructure: Migrating to Ansible Controller with GitOps
 // :page-layout: home
 // :!sectids:
 
-If there's the need of migrating the contents of an old instance of AWX or Ansible Tower to a new instance of Ansible Controller, the easiest way to do is explained below. In addition to the migration itself, it introduces to the usage of Configuration as Code applied to the Ansible Controller, which let's managing it's configuration in a GitOps way. The current workshop is the first step to be done if the Configuration as Code still doesn't exist, and the following steps for the GitOps are available at https://automationiberia.github.io/controller-casc-cd[https://automationiberia.github.io/controller-casc-cd].
+When migrating or moving from one infrastructure to another, the method explained below offers another approach to transfer the contents of an old AWX instance, Ansible Tower or event an Automation Controller to a other instance of an Automation Controller. Although there may be a learning curve if you're not yet familiar with GitOps or DevOps methodologies, this method sets a strong foundation for future migrations and seamless transitions between infrastructures.
+
+This workshop not only covers the migration process but also introduces the powerful practice of Configuration as Code (CaC) for Ansible Controller. By implementing CaC, you can efficiently manage your configuration in a GitOps manner, ensuring consistency, version control, and automation.
+
+This session is designed to be the first step for those who have not yet adopted CaC. Additional steps for establishing a full GitOps workflow can be found at https://automationiberia.github.io/controller-casc-cd[https://automationiberia.github.io/controller-casc-cd].
 
 [.tiles.browse]
 == Browse modules
