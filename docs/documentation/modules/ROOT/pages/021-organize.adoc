@@ -35,7 +35,16 @@ The exportation process has left the generated files at `/tmp/filetree-output`. 
     └── current_roles_awx-team.yaml
 ----
 
-These files can be used directly from the `/tmp/filtree-output` directory or, preferable, they can be copied to a git repository.
+These files can be used directly from the `/tmp/filtree-output` directory but, preferably, they may be copied to a git repository and populated with the missing information:
+
+[.console-input]
+[source,console]
+----
+$ mkdir -p configs/awx
+$ cp -a /tmp/filetree_output/* configs/awx/
+----
+
+The last step is to configure the path where each object type will be located at, so let's create the following file:
 
 [.console-input]
 [source,console]
