@@ -1,0 +1,100 @@
+include::_attributes.adoc[]
+
+== Paths configuration
+
+The exportation process has left the generated files at `/tmp/filetree-output`. These are organized in the following way:
+
+[.console-input]
+[source,console]
+----
+/tmp/filetree-output
+├── ORGANIZATION-N-NAME
+│   ├── credentials
+│   │   └── ID_ORGANIZATION-N-NAME-Credential Name.yaml
+│   ├── current_organization.yaml
+│   ├── inventories
+│   │   └── ORGANIZATION-N-NAME-Inventory Name
+│   │       ├── ID_ORGANIZATION-N-NAME-Inventory Name.yaml
+│   │       └── current_hosts.yaml
+│   ├── job_templates
+│   │   └── ID_ORGANIZATION-N-NAME-Job Template Name.yaml
+│   ├── projects
+│   │   └── ID_ORGANIZATION-N-NAME-Project Name.yaml
+│   └── teams
+│       └── ID_ORGANIZATION-N-NAME-Team Name.yaml
+├── current_credential_types.yaml
+├── current_instance_groups.yaml
+├── current_settings.yaml
+├── ORGANIZATIONLESS
+│   └── users
+│       ├── admin.yaml
+│       └── ORGANIZATION-N-NAME-org-user.yaml
+├── schedules
+│   ├── ID_Cleanup Job Schedule.yaml
+│   ├── ID_Cleanup Activity Schedule.yaml
+│   ├── ID_Cleanup Expired Sessions.yaml
+│   └── ID_Cleanup Expired OAuth 2 Tokens.yaml
+├── team_roles
+│   └── current_roles_ORGANIZATION-N-NAME-team.yaml
+└── user_roles
+    └── current_roles_ORGANIZATION-N-NAME-user.yaml
+----
+
+These files can be used directly from the `/tmp/filtree-output` directory or, preferable, they can be copied to a git repository.
+
+[.console-input]
+[source,console]
+----
+$ cat > my_vars/paths-awx.yaml <<EOF
+---
+# Controller Directory Path
+filetree_controller_settings: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_organizations: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_labels: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_user_accounts: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_teams: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credential_types: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credentials: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_credential_input_sources: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_notifications: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_projects: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_execution_environments: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_applications: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_inventories: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_inventory_sources: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_instance_groups: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_hosts: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_groups: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_templates: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_workflow_job_templates: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_schedules: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_roles: "{{ playbook_dir }}/../configs/awx"
+
+controller_configuration_dispatcher_roles:
+  - {role: settings, var: controller_settings, tags: settings}
+  - {role: organizations, var: controller_organizations, tags: organizations}
+  - {role: labels, var: controller_labels, tags: labels}
+  - {role: users, var: controller_user_accounts, tags: users}
+  - {role: teams, var: controller_teams, tags: teams}
+  - {role: credential_types, var: controller_credential_types, tags: credential_types}
+  - {role: credentials, var: controller_credentials, tags: credentials}
+  - {role: credential_input_sources, var: controller_credential_input_sources, tags: credential_input_sources}
+  - {role: execution_environments, var: controller_execution_environments, tags: execution_environments}
+  - {role: notification_templates, var: controller_notifications, tags: notification_templates}
+  - {role: projects, var: controller_projects, tags: projects}
+  - {role: inventories, var: controller_inventories, tags: inventories}
+  - {role: inventory_sources, var: controller_inventory_sources, tags: inventory_sources}
+  - {role: inventory_source_update, var: controller_inventory_sources, tags: inventory_sources}
+  - {role: applications, var: controller_applications, tags: applications}
+  - {role: instances, var: controller_instances, tags: instances}
+  - {role: instance_groups, var: controller_instance_groups, tags: instance_groups}
+  - {role: hosts, var: controller_hosts, tags: hosts}
+  - {role: bulk_host_create, var: controller_bulk_hosts, tags: bulk_hosts}
+  - {role: groups, var: controller_groups, tags: inventories}
+  - {role: job_templates, var: controller_templates, tags: job_templates}
+  - {role: workflow_job_templates, var: controller_workflows, tags: workflow_job_templates}
+  - {role: schedules, var: controller_schedules, tags: schedules}
+  - {role: roles, var: controller_roles, tags: roles}
+...
+EOF
+----
