@@ -35,13 +35,13 @@ The exportation process has left the generated files at `/tmp/filetree-output`. 
     └── current_roles_awx-team.yaml
 ----
 
-These files can be used directly from the `/tmp/filtree-output` directory but, preferably, they may be copied to a git repository and populated with the missing information:
+These files can be used directly from the `/tmp/filtree-output` directory but, preferably, they may be copied to a git repository and populated with the missing information (as the current migration proces is from AWX to Ansible Controller, the destination path will be `configs/controller/`):
 
 [.console-input]
 [source,console]
 ----
-$ mkdir -p configs/awx
-$ cp -a /tmp/filetree_output/* configs/awx/
+$ mkdir -p configs/controller
+$ cp -a /tmp/filetree_output/* configs/controller/
 ----
 
 The last step is to configure the path where each object type will be located at, so let's create the following file:
@@ -49,30 +49,30 @@ The last step is to configure the path where each object type will be located at
 [.console-input]
 [source,console]
 ----
-$ cat > my_vars/paths-awx.yaml <<EOF
+$ cat > my_vars/paths-controller.yaml <<EOF
 ---
 # Controller Directory Path
-filetree_controller_settings: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_organizations: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_labels: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_user_accounts: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_teams: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_credential_types: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_credentials: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_credential_input_sources: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_notifications: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_projects: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_execution_environments: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_applications: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_inventories: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_inventory_sources: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_instance_groups: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_hosts: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_groups: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_templates: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_workflow_job_templates: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_schedules: "{{ playbook_dir }}/../configs/awx"
-filetree_controller_roles: "{{ playbook_dir }}/../configs/awx"
+filetree_controller_settings: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_organizations: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_labels: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_user_accounts: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_teams: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_credential_types: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_credentials: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_credential_input_sources: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_notifications: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_projects: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_execution_environments: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_applications: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_inventories: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_inventory_sources: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_instance_groups: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_hosts: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_groups: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_templates: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_workflow_job_templates: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_schedules: "{{ playbook_dir }}/../configs/controller"
+filetree_controller_roles: "{{ playbook_dir }}/../configs/controller"
 
 controller_configuration_dispatcher_roles:
   - {role: settings, var: controller_settings, tags: settings}
