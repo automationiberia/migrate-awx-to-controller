@@ -15,7 +15,7 @@ These variables are undefined when you close your terminal session, so they need
 The shell that is expected to be used to run the snippet below is `bash`.
 ====
 
-NOTE: The `Vault Password` variable used here should be the same as the one used previously in the exportation process (see xref:020-export.adoc[Export data from AWX/Tower]). It is defined here again only for completeness.
+NOTE: The `Vault Password` variable used here should be the same as the one used previously in the exportation process (see xref:020-export.adoc#Export[Export data from AWX/Tower]). It is defined here again only for completeness.
 
 [.console-input]
 [source,console]
@@ -51,7 +51,7 @@ EOF
 
 As this file is containing sensitive information, it needs to be encrypted using `ansible-vault`:
 
-NOTE: Similarly as above, The `.vault-password` file used here should be the same as the one used previously in the exportation process (see <<Export,Export data from AWX/Tower>>). It is created here again only for completeness.
+NOTE: Similarly as above, The `.vault-password` file used here should be the same as the one used previously in the exportation process (see xref:020-export.adoc#Export[Export data from AWX/Tower]). It is created here again only for completeness.
 
 [.console-input]
 [source,console]
