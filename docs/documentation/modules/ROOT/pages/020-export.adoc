@@ -106,9 +106,9 @@ As this file is containing sensitive information, it needs to be encrypted using
 [.console-input]
 [source,console]
 ----
-$ echo ${VAULT_PASSWORD} > .vault-password
-$ chmod 0600 .vault-password
-$ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-awx.yaml
+echo ${VAULT_PASSWORD} > .vault-password
+chmod 0600 .vault-password
+ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-awx.yaml
 ----
 
 == Run the exportation process

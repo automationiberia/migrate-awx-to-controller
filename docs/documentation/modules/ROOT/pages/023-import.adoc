@@ -57,9 +57,9 @@ NOTE: Similarly as above, The `.vault-password` file used here should be the sam
 [.console-input]
 [source,console]
 ----
-$ echo ${VAULT_PASSWORD} > .vault-password
-$ chmod 0600 .vault-password
-$ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-controller.yaml
+echo ${VAULT_PASSWORD} > .vault-password
+chmod 0600 .vault-password
+ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-controller.yaml
 ----
 
 == Run the import process
@@ -81,5 +81,3 @@ ansible-navigator run playbooks/config-controller-filetree.yaml \
         ansible_async_dir: /home/runner/.ansible_async/ 
       }'
 ----
-
-

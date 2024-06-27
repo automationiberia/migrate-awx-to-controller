@@ -41,8 +41,8 @@ These files can be used directly from the `/tmp/filtree-output` directory but, p
 [.console-input]
 [source,console]
 ----
-$ mkdir -p configs/controller
-$ cp -a /tmp/filetree_output/* configs/controller/
+mkdir -p configs/controller
+cp -a /tmp/filetree_output/* configs/controller/
 ----
 
 The last step is to configure the path where each object type will be located at, so let's create the following file:
@@ -50,7 +50,7 @@ The last step is to configure the path where each object type will be located at
 [.console-input]
 [source,console]
 ----
-$ cat > my_vars/paths-controller.yaml <<EOF
+cat > my_vars/paths-controller.yaml <<EOF
 ---
 # Controller Directory Path
 filetree_controller_settings: "{{ playbook_dir }}/../configs/controller"
