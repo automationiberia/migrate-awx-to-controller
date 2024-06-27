@@ -62,6 +62,32 @@ chmod 0600 .vault-password
 ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-controller.yaml
 ----
 
+== Customize the Instance Groups
+
+The file `configs/controller/current_instance_groups.yaml` contains the Instance Group definition for the AWX instance. This file is useless and will generate errors if it's not customized or removed, as the target Ansible Controller instance will run in different Instances. So, this file can be customized to define the new and needed Instance Groups using the new Instances, or can be deleted to let the firsts imports to work properly:
+
+.Exported Instance Group
+[.console-input]
+[source,console]
+----
+cat configs/controller/current_instance_groups.yaml     
+---
+controller_instance_groups:
+  - name: "tower"
+    policy_instance_minimum: "0"
+    policy_instance_percentage: "100"
+    instances:
+      - "awx"
+...
+----
+
+.Remove the Instance Group file
+[.console-input]
+[source,console]
+----
+rm configs/controller/current_instance_groups.yaml
+----
+
 == Run the import process
 
 [.console-input]
