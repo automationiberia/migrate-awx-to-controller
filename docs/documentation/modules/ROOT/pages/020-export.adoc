@@ -25,19 +25,24 @@ python3 -m pip install ansible-builder>=3.0.0 --user
 [.Export]
 == Export all the variables to be used in the next steps
 
-The following will be used in the next steps, and are exported using `read` to avoid having sensitive information in the history of the server.
+The following variables will be used in the next steps, and are exported using `read` to avoid having sensitive information in the command history of the server.
 
-IMPORTANT: These variables are undefined when you close your terminal session, so they need to be populated each time you open a new terminal.
+[IMPORTANT]
+====
+These variables are undefined when you close your terminal session, so they need to be populated each time you open a new terminal.
+
+The shell that is expected to be used to run the snippet below is `bash`.
+====
 
 [.console-input]
 [source,console]
 ----
 read -e -p ">>> User Name: " USERNAME
-read -e -p ">>> Password: " PASSWORD
+read -e -p ">>> Password: " -s PASSWORD
 read -e -p ">>> AWX Hostname: " AWX_HOSTNAME
 read -e -p ">>> Validate Certs: " AWX_VALIDATE_CERTS
-read -e -p ">>> Is AAP: " IS_AAP
-read -e -p ">>> Have Constructed Inventories: " HAVE_CONSTRUCTED
+read -e -p ">>> Is AAP (yes/no): " -i yes IS_AAP
+read -e -p ">>> Have Constructed Inventories (yes/no): " -i yes HAVE_CONSTRUCTED
 read -e -p ">>> Vault Password: " VAULT_PASSWORD
 ----
 
@@ -74,7 +79,7 @@ mkdir my_vars
 
 Now, the steps below can succeed.
 
-== Customize the configuration
+== Customize the AWX connection
 
 The next step is to configure the files to let the playbooks to connect to the AWX instance:
 
@@ -96,6 +101,7 @@ EOF
 
 As this file is containing sensitive information, it needs to be encrypted using `ansible-vault`:
 
+[.vault-file-creation]
 [.console-input]
 [source,console]
 ----

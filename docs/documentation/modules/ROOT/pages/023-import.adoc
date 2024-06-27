@@ -1,0 +1,62 @@
+include::_attributes.adoc[]
+
+== Import the configuration
+
+Once all the configuration files has been organized and the credentials have been filled in, it can be imported into the Ansible Controller, as shown below.
+
+=== Export all the variables to be used in the next steps
+
+The following variables will be used in the next steps, and are exported using `read` to avoid having sensitive information in the command history of the server.
+
+[IMPORTANT]
+====
+These variables are undefined when you close your terminal session, so they need to be populated each time you open a new terminal.
+
+The shell that is expected to be used to run the snippet below is `bash`.
+====
+
+NOTE: The `Vault Password` variable used here should be the same as the one used previously in the exportation process (see xref:020-export.adoc[Export data from AWX/Tower]). It is defined here again only for completeness.
+
+[.console-input]
+[source,console]
+----
+read -e -p ">>> User Name: " CONTROLLER_USERNAME
+read -e -p ">>> Password: " -s CONTROLLER_PASSWORD
+read -e -p ">>> AWX Hostname: " CONTROLLER_HOSTNAME
+read -e -p ">>> Validate Certs: " CONTROLLER_VALIDATE_CERTS
+read -e -p ">>> Is AAP (yes/no): " -i yes IS_AAP
+read -e -p ">>> Have Constructed Inventories (yes/no): " -i yes HAVE_CONSTRUCTED
+read -e -p ">>> Vault Password: " VAULT_PASSWORD
+----
+
+== Customize the Ansible Controller connection
+
+The next step is to configure the files to let the playbooks to connect to the Ansible Controller instance:
+
+[.console-input]
+[source,console]
+----
+cat > my_vars/vault-controller.yaml <<EOF
+---
+# Ansible Controller
+vault_controller_username: "${CONTROLLER_USERNAME}"
+vault_controller_password: "${CONTROLLER_PASSWORD}"
+vault_controller_hostname: "${CONTROLLER_HOSTNAME}"
+vault_controller_validate_certs: ${CONTROLLER_VALIDATE_CERTS}
+is_aap: ${IS_AAP}
+have_constructed: ${HAVE_CONSTRUCTED}
+...
+EOF
+----
+
+As this file is containing sensitive information, it needs to be encrypted using `ansible-vault`:
+
+NOTE: Similarly as above, The `.vault-password` file used here should be the same as the one used previously in the exportation process (see <<Export,Export data from AWX/Tower>>). It is created here again only for completeness.
+
+[.console-input]
+[source,console]
+----
+$ echo ${VAULT_PASSWORD} > .vault-password
+$ chmod 0600 .vault-password
+$ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-awx.yaml
+----
