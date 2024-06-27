@@ -70,7 +70,7 @@ The file `configs/controller/current_instance_groups.yaml` contains the Instance
 [.console-input]
 [source,console]
 ----
-cat configs/controller/current_instance_groups.yaml     
+$ cat configs/controller/current_instance_groups.yaml     
 ---
 controller_instance_groups:
   - name: "tower"
