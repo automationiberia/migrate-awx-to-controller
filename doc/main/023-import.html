@@ -221,7 +221,35 @@ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-contro
 </div>
 </div>
 <div class="sect1">
-<h2 id="_run_the_import_process"><a class="anchor" href="#_run_the_import_process"></a>3. Run the import process</h2>
+<h2 id="_customize_the_instance_groups"><a class="anchor" href="#_customize_the_instance_groups"></a>3. Customize the Instance Groups</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The file <code>configs/controller/current_instance_groups.yaml</code> contains the Instance Group definition for the AWX instance. This file is useless and will generate errors if it&#8217;s not customized or removed, as the target Ansible Controller instance will run in different Instances. So, this file can be customized to define the new and needed Instance Groups using the new Instances, or can be deleted to let the firsts imports to work properly:</p>
+</div>
+<div class="listingblock console-input">
+<div class="title">Exported Instance Group</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat configs/controller/current_instance_groups.yaml
+---
+controller_instance_groups:
+  - name: "tower"
+    policy_instance_minimum: "0"
+    policy_instance_percentage: "100"
+    instances:
+      - "awx"
+...</code></pre>
+</div>
+</div>
+<div class="listingblock console-input">
+<div class="title">Remove the Instance Group file</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">rm configs/controller/current_instance_groups.yaml</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_the_import_process"><a class="anchor" href="#_run_the_import_process"></a>4. Run the import process</h2>
 <div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
