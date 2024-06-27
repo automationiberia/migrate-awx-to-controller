@@ -213,9 +213,9 @@ Similarly as above, The <code>.vault-password</code> file used here should be th
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ echo ${VAULT_PASSWORD} &gt; .vault-password
-$ chmod 0600 .vault-password
-$ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-controller.yaml</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">echo ${VAULT_PASSWORD} &gt; .vault-password
+chmod 0600 .vault-password
+ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-controller.yaml</code></pre>
 </div>
 </div>
 </div>

@@ -163,8 +163,8 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ mkdir -p configs/controller
-$ cp -a /tmp/filetree_output/* configs/controller/</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">mkdir -p configs/controller
+cp -a /tmp/filetree_output/* configs/controller/</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -172,7 +172,7 @@ $ cp -a /tmp/filetree_output/* configs/controller/</code></pre>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">$ cat &gt; my_vars/paths-controller.yaml &lt;&lt;EOF
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; my_vars/paths-controller.yaml &lt;&lt;EOF
 ---
 # Controller Directory Path
 filetree_controller_settings: "{{ playbook_dir }}/../configs/controller"
