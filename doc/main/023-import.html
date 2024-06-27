@@ -233,6 +233,7 @@ ansible-navigator run playbooks/config-controller-filetree.yaml \
   --eev /tmp/:/tmp/ \
   -e @my_vars/vault-controller.yaml \
   -e @my_vars/vaulted-credentials.yaml \
+  -e @my_vars/paths-controller.yaml \
   --vault-password-file .vault-password \
   -e '{
         ansible_async_dir: /home/runner/.ansible_async/
