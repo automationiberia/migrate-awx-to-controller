@@ -23,7 +23,7 @@ It must be `ansible-builder>=3.0.0`, and can be installed with the following com
 python3 -m pip install ansible-builder>=3.0.0 --user
 ----
 
-[.Export]
+[#Export]
 == Export all the variables to be used in the next steps
 
 The following variables will be used in the next steps, and are exported using `read` to avoid having sensitive information in the command history of the server.
