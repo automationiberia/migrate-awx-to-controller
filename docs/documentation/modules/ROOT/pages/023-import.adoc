@@ -1,3 +1,4 @@
+= Import the configuration into the Ansible Controller
 include::_attributes.adoc[]
 
 == Import the configuration
@@ -58,5 +59,26 @@ NOTE: Similarly as above, The `.vault-password` file used here should be the sam
 ----
 $ echo ${VAULT_PASSWORD} > .vault-password
 $ chmod 0600 .vault-password
-$ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-awx.yaml
+$ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-controller.yaml
 ----
+
+== Run the import process
+
+[.console-input]
+[source,console]
+----
+\
+ansible-navigator run playbooks/config-controller-filetree.yaml \
+  -i localhost, \
+  -m stdout \
+  --eei quay.io/automationiberia/casc/ee-casc:summit24 \
+  --eev /tmp/:/tmp/ \
+  -e @my_vars/vault-controller.yaml \
+  -e @my_vars/vaulted-credentials.yaml \
+  --vault-password-file .vault-password \
+  -e '{
+        ansible_async_dir: /home/runner/.ansible_async/ 
+      }'
+----
+
+

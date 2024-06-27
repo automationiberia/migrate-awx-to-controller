@@ -1,3 +1,4 @@
+= Organize the data
 include::_attributes.adoc[]
 
 == Paths configuration
