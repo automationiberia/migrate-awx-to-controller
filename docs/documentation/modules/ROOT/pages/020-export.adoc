@@ -41,7 +41,7 @@ The shell that is expected to be used to run the snippet below is `bash`.
 read -e -p ">>> User Name: " USERNAME
 read -e -p ">>> Password: " -s PASSWORD
 read -e -p ">>> AWX Hostname: " AWX_HOSTNAME
-read -e -p ">>> Validate Certs: " AWX_VALIDATE_CERTS
+read -e -p ">>> Validate Certs (yes/no): " AWX_VALIDATE_CERTS
 read -e -p ">>> Is AAP (yes/no): " -i yes IS_AAP
 read -e -p ">>> Have Constructed Inventories (yes/no): " -i yes HAVE_CONSTRUCTED
 read -e -p ">>> Vault Password: " VAULT_PASSWORD
