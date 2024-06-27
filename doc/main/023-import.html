@@ -166,7 +166,7 @@ The <code>Vault Password</code> variable used here should be the same as the one
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">read -e -p "&gt;&gt;&gt; User Name: " CONTROLLER_USERNAME
 read -e -p "&gt;&gt;&gt; Password: " -s CONTROLLER_PASSWORD
 read -e -p "&gt;&gt;&gt; Ansible Controller Hostname: " CONTROLLER_HOSTNAME
-read -e -p "&gt;&gt;&gt; Validate Certs (yes/no): " CONTROLLER_VALIDATE_CERTS
+read -e -p "&gt;&gt;&gt; Validate Certs (yes/no): " -i no CONTROLLER_VALIDATE_CERTS
 read -e -p "&gt;&gt;&gt; Is AAP (yes/no): " -i yes IS_AAP
 read -e -p "&gt;&gt;&gt; Have Constructed Inventories (yes/no): " -i yes HAVE_CONSTRUCTED
 read -e -p "&gt;&gt;&gt; Vault Password: " VAULT_PASSWORD</code></pre>
