@@ -27,8 +27,8 @@ read -e -p ">>> Ansible Controller Admin User Name: " CONTROLLER_USERNAME
 read -e -p ">>> Ansible Controller Admin Password: " -s CONTROLLER_PASSWORD && echo ""
 read -e -p ">>> Ansible Controller Hostname: " CONTROLLER_HOSTNAME
 read -e -p ">>> Validate Certs (yes/no): " -i no CONTROLLER_VALIDATE_CERTS
-read -e -p ">>> Is AAP (yes/no): " -i yes IS_AAP
-read -e -p ">>> Have Constructed Inventories (yes/no): " -i yes HAVE_CONSTRUCTED
+read -e -p ">>> Is AAP (yes/no): " -i yes CONTROLLER_IS_AAP
+read -e -p ">>> Have Constructed Inventories (yes/no): " -i yes CONTROLLER_HAVE_CONSTRUCTED
 read -e -p ">>> Vault Password: " -s VAULT_PASSWORD && echo ""
 ----
 
@@ -46,8 +46,8 @@ vault_controller_username: "${CONTROLLER_USERNAME}"
 vault_controller_password: "${CONTROLLER_PASSWORD}"
 vault_controller_hostname: "${CONTROLLER_HOSTNAME}"
 vault_controller_validate_certs: ${CONTROLLER_VALIDATE_CERTS}
-is_aap: ${IS_AAP}
-have_constructed: ${HAVE_CONSTRUCTED}
+is_aap: ${CONTROLLER_IS_AAP}
+have_constructed: ${CONTROLLER_HAVE_CONSTRUCTED}
 ...
 EOF
 ----

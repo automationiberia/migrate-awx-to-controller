@@ -78,8 +78,8 @@ read -e -p ">>> AWX Admin User Name: " AWX_USERNAME
 read -e -p ">>> AWX Admin Password: " -s AWX_PASSWORD && echo ""
 read -e -p ">>> AWX Hostname: " AWX_HOSTNAME
 read -e -p ">>> Validate Certs (yes/no): " -i no AWX_VALIDATE_CERTS
-read -e -p ">>> Is AAP (yes/no): " -i no IS_AAP
-read -e -p ">>> Have Constructed Inventories (yes/no): " -i no HAVE_CONSTRUCTED
+read -e -p ">>> Is AAP (yes/no): " -i no AWX_IS_AAP
+read -e -p ">>> Have Constructed Inventories (yes/no): " -i no AWX_HAVE_CONSTRUCTED
 read -e -p ">>> Vault Password: " -s VAULT_PASSWORD && echo ""
 ----
 
@@ -130,8 +130,8 @@ vault_controller_username: "${AWX_USERNAME}"
 vault_controller_password: "${AWX_PASSWORD}"
 vault_controller_hostname: "${AWX_HOSTNAME}"
 vault_controller_validate_certs: ${AWX_VALIDATE_CERTS}
-is_aap: ${IS_AAP}
-have_constructed: ${HAVE_CONSTRUCTED}
+is_aap: ${AWX_IS_AAP}
+have_constructed: ${AWX_HAVE_CONSTRUCTED}
 ...
 EOF
 ----
