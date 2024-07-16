@@ -132,8 +132,35 @@
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">python3 -m pip install ansible-navigator&gt;=3.4.2 --user</code></pre>
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">python3 -m pip install --user ansible-navigator&gt;=3.4.2</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Check the installed version with the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-navigator --version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If a previous version was installed, it can be upgraded with the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">python3 -m pip install --user --upgrade ansible-navigator&gt;=3.4.2</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -146,6 +173,33 @@ It must be <code>ansible-builder&gt;=3.0.0</code>, and can be installed with the
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">python3 -m pip install ansible-builder&gt;=3.0.0 --user</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Check the installed version with the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">ansible-builder --version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If a previous version was installed, it can be upgraded with the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">python3 -m pip install --user --upgrade ansible-builder&gt;=3.0.0</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -175,8 +229,9 @@ It must be <code>ansible-builder&gt;=3.0.0</code>, and can be installed with the
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">read -e -p "&gt;&gt;&gt; User Name: " USERNAME
-read -e -p "&gt;&gt;&gt; Password: " -s PASSWORD
+<pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">read -e -p "&gt;&gt;&gt; GitHub Username: " GITHUB_USERNAME
+read -e -p "&gt;&gt;&gt; AWX Admin User Name: " AWX_USERNAME
+read -e -p "&gt;&gt;&gt; AWX Admin Password: " -s AWX_PASSWORD
 read -e -p "&gt;&gt;&gt; AWX Hostname: " AWX_HOSTNAME
 read -e -p "&gt;&gt;&gt; Validate Certs (yes/no): " -i no AWX_VALIDATE_CERTS
 read -e -p "&gt;&gt;&gt; Is AAP (yes/no): " -i no IS_AAP
@@ -190,7 +245,7 @@ read -e -p "&gt;&gt;&gt; Vault Password: " -s VAULT_PASSWORD</code></pre>
 <h2 id="_fork_and_clone_the_github_repository"><a class="anchor" href="#_fork_and_clone_the_github_repository"></a>3. Fork and clone the GitHub repository</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The first step is to fork the repository and clone it to start working. The GitHub <code>&lt;USERNAME&gt;</code> will be used in the commands below and it must be replaced with your own username:</p>
+<p>The first step is to fork the Git repository <a href="https://github.com/automationiberia/migrate-awx-to-controller/" class="bare">https://github.com/automationiberia/migrate-awx-to-controller/</a> and clone it to start working. The GitHub <code>&lt;GITHUB_USERNAME&gt;</code> variable will be used in the commands below as it&#8217;s been populated with your own username in the previous step:</p>
 </div>
 <div class="exampleblock">
 <div class="content">
@@ -208,7 +263,7 @@ read -e -p "&gt;&gt;&gt; Vault Password: " -s VAULT_PASSWORD</code></pre>
 <div class="content">
 <img src="_images/github_fork_2.png" alt="github fork 2">
 </div>
-<div class="title">Figure 2. Give it a name into your <code>&lt;USERNAME&gt;</code> organization</div>
+<div class="title">Figure 2. Give it a name into your <code>&lt;GITHUB_USERNAME&gt;</code> organization</div>
 </div>
 </div>
 </div>
@@ -259,8 +314,8 @@ mkdir my_vars</code></pre>
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">cat &gt; my_vars/vault-awx.yaml &lt;&lt;EOF
 ---
 # AWX
-vault_controller_username: "${USERNAME}"
-vault_controller_password: "${PASSWORD}"
+vault_controller_username: "${AWX_USERNAME}"
+vault_controller_password: "${AWX_PASSWORD}"
 vault_controller_hostname: "${AWX_HOSTNAME}"
 vault_controller_validate_certs: ${AWX_VALIDATE_CERTS}
 is_aap: ${IS_AAP}
