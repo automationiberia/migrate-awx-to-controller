@@ -1,12 +1,11 @@
 = Export process
 include::_attributes.adoc[]
 
-== Pre-requisites
+== Pre-Requisits
 
 === ansible-navigator
 
-To proceed with this guide, ensure you have `ansible-navigator` version `>=3.4.2` installed. If not already installed, you can do so using the following command:
-
+It must be `ansible-navigator>=3.4.2`, and can be installed with the following command:
 [.console-input]
 [source,console]
 ----
@@ -32,9 +31,8 @@ python3 -m pip install --user --upgrade ansible-navigator>=3.4.2
 
 === ansible-builder (optional)
 
-ansible-builder is optional and required only if you are interested in the bonus steps.
-
-Ensure you have `ansible-builder` version `>=3.0.0` installed. If not already installed, you can do so using the following command:
+It is optional if interested in the bonus steps.
+It must be `ansible-builder>=3.0.0`, and can be installed with the following command:
 
 [.console-input]
 [source,console]
@@ -77,12 +75,12 @@ The shell that is expected to be used to run the snippet below is `bash`.
 ----
 read -e -p ">>> GitHub Username: " GITHUB_USERNAME
 read -e -p ">>> AWX Admin User Name: " AWX_USERNAME
-read -e -p ">>> AWX Admin Password: " -s AWX_PASSWORD
+read -e -p ">>> AWX Admin Password: " -s AWX_PASSWORD && echo ""
 read -e -p ">>> AWX Hostname: " AWX_HOSTNAME
 read -e -p ">>> Validate Certs (yes/no): " -i no AWX_VALIDATE_CERTS
 read -e -p ">>> Is AAP (yes/no): " -i no IS_AAP
 read -e -p ">>> Have Constructed Inventories (yes/no): " -i no HAVE_CONSTRUCTED
-read -e -p ">>> Vault Password: " -s VAULT_PASSWORD
+read -e -p ">>> Vault Password: " -s VAULT_PASSWORD && echo ""
 ----
 
 == Fork and clone the GitHub repository

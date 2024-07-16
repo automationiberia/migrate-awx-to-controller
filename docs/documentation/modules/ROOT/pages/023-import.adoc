@@ -1,6 +1,8 @@
 = Import the configuration into the Ansible Controller
 include::_attributes.adoc[]
 
+== Review the initial status of the {ans} Controller
+
 == Import the configuration
 
 Once all the configuration files has been organized and the credentials have been filled in, it can be imported into the Ansible Controller, as shown below.
@@ -22,12 +24,12 @@ NOTE: The `Vault Password` variable used here should be the same as the one used
 [source,console]
 ----
 read -e -p ">>> Ansible Controller Admin User Name: " CONTROLLER_USERNAME
-read -e -p ">>> Ansible Controller Admin Password: " -s CONTROLLER_PASSWORD
+read -e -p ">>> Ansible Controller Admin Password: " -s CONTROLLER_PASSWORD && echo ""
 read -e -p ">>> Ansible Controller Hostname: " CONTROLLER_HOSTNAME
 read -e -p ">>> Validate Certs (yes/no): " -i no CONTROLLER_VALIDATE_CERTS
 read -e -p ">>> Is AAP (yes/no): " -i yes IS_AAP
 read -e -p ">>> Have Constructed Inventories (yes/no): " -i yes HAVE_CONSTRUCTED
-read -e -p ">>> Vault Password: " -s VAULT_PASSWORD
+read -e -p ">>> Vault Password: " -s VAULT_PASSWORD && echo ""
 ----
 
 == Customize the Ansible Controller connection
