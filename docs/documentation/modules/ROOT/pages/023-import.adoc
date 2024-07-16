@@ -21,8 +21,8 @@ NOTE: The `Vault Password` variable used here should be the same as the one used
 [.console-input]
 [source,console]
 ----
-read -e -p ">>> User Name: " CONTROLLER_USERNAME
-read -e -p ">>> Password: " -s CONTROLLER_PASSWORD
+read -e -p ">>> Ansible Controller Admin User Name: " CONTROLLER_USERNAME
+read -e -p ">>> Ansible Controller Admin Password: " -s CONTROLLER_PASSWORD
 read -e -p ">>> Ansible Controller Hostname: " CONTROLLER_HOSTNAME
 read -e -p ">>> Validate Certs (yes/no): " -i no CONTROLLER_VALIDATE_CERTS
 read -e -p ">>> Is AAP (yes/no): " -i yes IS_AAP
