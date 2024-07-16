@@ -11,6 +11,11 @@ This session is designed to be the first step for those who have not yet adopted
 [.tiles.browse]
 == Browse modules
 
+[TIP]
+====
+All the commands in the following sections can be executed in the provided VSCode instance's Terminal.
+====
+
 [.tile]
 * xref:020-export.adoc[Export data from AWX/Tower]
 * xref:021-organize.adoc[Organize the data]
