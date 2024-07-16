@@ -123,12 +123,12 @@
 <article class="doc">
 <h1 class="page">Export process</h1>
 <div class="sect1">
-<h2 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>1. Pre-requisites</h2>
+<h2 id="_pre_requisits"><a class="anchor" href="#_pre_requisits"></a>1. Pre-Requisits</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_ansible_navigator"><a class="anchor" href="#_ansible_navigator"></a>1.1. ansible-navigator</h3>
 <div class="paragraph">
-<p>To proceed with this guide, ensure you have <code>ansible-navigator</code> version <code>&gt;=3.4.2</code> installed. If not already installed, you can do so using the following command:</p>
+<p>It must be <code>ansible-navigator&gt;=3.4.2</code>, and can be installed with the following command:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -166,10 +166,8 @@
 <div class="sect2">
 <h3 id="_ansible_builder_optional"><a class="anchor" href="#_ansible_builder_optional"></a>1.2. ansible-builder (optional)</h3>
 <div class="paragraph">
-<p>ansible-builder is optional and required only if you are interested in the bonus steps.</p>
-</div>
-<div class="paragraph">
-<p>Ensure you have <code>ansible-builder</code> version <code>&gt;=3.0.0</code> installed. If not already installed, you can do so using the following command:</p>
+<p>It is optional if interested in the bonus steps.
+It must be <code>ansible-builder&gt;=3.0.0</code>, and can be installed with the following command:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
@@ -233,12 +231,12 @@
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">read -e -p "&gt;&gt;&gt; GitHub Username: " GITHUB_USERNAME
 read -e -p "&gt;&gt;&gt; AWX Admin User Name: " AWX_USERNAME
-read -e -p "&gt;&gt;&gt; AWX Admin Password: " -s AWX_PASSWORD
+read -e -p "&gt;&gt;&gt; AWX Admin Password: " -s AWX_PASSWORD &amp;&amp; echo ""
 read -e -p "&gt;&gt;&gt; AWX Hostname: " AWX_HOSTNAME
 read -e -p "&gt;&gt;&gt; Validate Certs (yes/no): " -i no AWX_VALIDATE_CERTS
 read -e -p "&gt;&gt;&gt; Is AAP (yes/no): " -i no IS_AAP
 read -e -p "&gt;&gt;&gt; Have Constructed Inventories (yes/no): " -i no HAVE_CONSTRUCTED
-read -e -p "&gt;&gt;&gt; Vault Password: " -s VAULT_PASSWORD</code></pre>
+read -e -p "&gt;&gt;&gt; Vault Password: " -s VAULT_PASSWORD &amp;&amp; echo ""</code></pre>
 </div>
 </div>
 </div>

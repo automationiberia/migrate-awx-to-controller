@@ -122,13 +122,19 @@
 <article class="doc">
 <h1 class="page">Import the configuration into the Ansible Controller</h1>
 <div class="sect1">
-<h2 id="_import_the_configuration"><a class="anchor" href="#_import_the_configuration"></a>1. Import the configuration</h2>
+<h2 id="_review_the_initial_status_of_the_ans_controller"><a class="anchor" href="#_review_the_initial_status_of_the_ans_controller"></a>1. Review the initial status of the {ans} Controller</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_import_the_configuration"><a class="anchor" href="#_import_the_configuration"></a>2. Import the configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Once all the configuration files has been organized and the credentials have been filled in, it can be imported into the Ansible Controller, as shown below.</p>
 </div>
 <div class="sect2">
-<h3 id="_export_all_the_variables_to_be_used_in_the_next_steps"><a class="anchor" href="#_export_all_the_variables_to_be_used_in_the_next_steps"></a>1.1. Export all the variables to be used in the next steps</h3>
+<h3 id="_export_all_the_variables_to_be_used_in_the_next_steps"><a class="anchor" href="#_export_all_the_variables_to_be_used_in_the_next_steps"></a>2.1. Export all the variables to be used in the next steps</h3>
 <div class="paragraph">
 <p>The following variables will be used in the next steps, and are exported using <code>read</code> to avoid having sensitive information in the command history of the server.</p>
 </div>
@@ -164,19 +170,19 @@ The <code>Vault Password</code> variable used here should be the same as the one
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-console hljs" data-lang="console">read -e -p "&gt;&gt;&gt; Ansible Controller Admin User Name: " CONTROLLER_USERNAME
-read -e -p "&gt;&gt;&gt; Ansible Controller Admin Password: " -s CONTROLLER_PASSWORD
+read -e -p "&gt;&gt;&gt; Ansible Controller Admin Password: " -s CONTROLLER_PASSWORD &amp;&amp; echo ""
 read -e -p "&gt;&gt;&gt; Ansible Controller Hostname: " CONTROLLER_HOSTNAME
 read -e -p "&gt;&gt;&gt; Validate Certs (yes/no): " -i no CONTROLLER_VALIDATE_CERTS
 read -e -p "&gt;&gt;&gt; Is AAP (yes/no): " -i yes IS_AAP
 read -e -p "&gt;&gt;&gt; Have Constructed Inventories (yes/no): " -i yes HAVE_CONSTRUCTED
-read -e -p "&gt;&gt;&gt; Vault Password: " -s VAULT_PASSWORD</code></pre>
+read -e -p "&gt;&gt;&gt; Vault Password: " -s VAULT_PASSWORD &amp;&amp; echo ""</code></pre>
 </div>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_customize_the_ansible_controller_connection"><a class="anchor" href="#_customize_the_ansible_controller_connection"></a>2. Customize the Ansible Controller connection</h2>
+<h2 id="_customize_the_ansible_controller_connection"><a class="anchor" href="#_customize_the_ansible_controller_connection"></a>3. Customize the Ansible Controller connection</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The next step is to configure the files to let the playbooks to connect to the Ansible Controller instance:</p>
@@ -221,7 +227,7 @@ ansible-vault encrypt --vault-password-file .vault-password my_vars/vault-contro
 </div>
 </div>
 <div class="sect1">
-<h2 id="_customize_the_instance_groups"><a class="anchor" href="#_customize_the_instance_groups"></a>3. Customize the Instance Groups</h2>
+<h2 id="_customize_the_instance_groups"><a class="anchor" href="#_customize_the_instance_groups"></a>4. Customize the Instance Groups</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The file <code>configs/controller/current_instance_groups.yaml</code> contains the Instance Group definition for the AWX instance. This file is useless and will generate errors if it&#8217;s not customized or removed, as the target Ansible Controller instance will run in different Instances. So, this file can be customized to define the new and needed Instance Groups using the new Instances, or can be deleted to let the firsts imports to work properly:</p>
@@ -249,7 +255,7 @@ controller_instance_groups:
 </div>
 </div>
 <div class="sect1">
-<h2 id="_run_the_import_process"><a class="anchor" href="#_run_the_import_process"></a>4. Run the import process</h2>
+<h2 id="_run_the_import_process"><a class="anchor" href="#_run_the_import_process"></a>5. Run the import process</h2>
 <div class="sectionbody">
 <div class="listingblock console-input">
 <div class="content">
