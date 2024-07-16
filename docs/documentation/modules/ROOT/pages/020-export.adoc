@@ -87,14 +87,14 @@ read -e -p ">>> Vault Password: " -s VAULT_PASSWORD
 
 == Fork and clone the GitHub repository
 
-The first step is to fork the Git repository https://github.com/automationiberia/migrate-awx-to-controller/ and clone it to start working. The GitHub `<GITHUB_USERNAME>` variable will be used in the commands below as it's been populated with your own username in the previous step:
+The first step is to fork the Git repository https://github.com/automationiberia/migrate-awx-to-controller/ and clone it to start working. The GitHub `${GITHUB_USERNAME}` variable will be used in the commands below as it's been populated with your own username in the previous step:
 
 ====
 .Fork the repository
 image::github_fork_1.png[]
 ====
 ====
-.Give it a name into your `<GITHUB_USERNAME>` organization
+.Give it a name into your `${GITHUB_USERNAME}` organization
 image::github_fork_2.png[]
 ====
 ====
@@ -111,7 +111,7 @@ Clone the repository:
 [source,console]
 ----
 mkdir ~/workdir && cd $_
-git clone https://github.com/<GITHUB_USERNAME>/migrate-awx-to-controller
+git clone https://github.com/${GITHUB_USERNAME}/migrate-awx-to-controller
 cd migrate-awx-to-controller
 mkdir my_vars
 ----
