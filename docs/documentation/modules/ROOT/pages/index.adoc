@@ -2,7 +2,7 @@
 // :page-layout: home
 // :!sectids:
 
-When migrating or moving from one infrastructure to another, the method explained below offers another approach to transfer the contents of an old AWX instance, Ansible Tower or event an Automation Controller to a other instance of an Automation Controller. Although there may be a learning curve if you're not yet familiar with GitOps or DevOps methodologies, this method sets a strong foundation for future migrations and seamless transitions between infrastructures.
+When migrating or moving from one infrastructure to another, the method explained below offers another approach to transfer the contents of an old AWX instance, Ansible Tower or even an Automation Controller to any other instance of an Automation Controller. Although there may be a learning curve if you're not yet familiar with GitOps or DevOps methodologies, this method sets a strong foundation for future migrations and seamless transitions between infrastructures.
 
 This workshop not only covers the migration process but also introduces the powerful practice of Configuration as Code (CaC) for Ansible Controller. By implementing CaC, you can efficiently manage your configuration in a GitOps manner, ensuring consistency, version control, and automation.
 
