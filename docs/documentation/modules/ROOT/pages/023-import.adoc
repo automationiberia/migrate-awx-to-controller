@@ -1,7 +1,7 @@
 = Import the configuration into the Ansible Controller
 include::_attributes.adoc[]
 
-== Review the initial status of the {ans} Controller
+== Review the initial status of the Ansible Controller
 
 == Import the configuration
 
