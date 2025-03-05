@@ -1,8 +1,11 @@
+---
 collections:
   - name: awx.awx
     version: "22.3.0"
   - name: ansible.utils
   - name: ansible.posix
   - name: community.general
-  - name: infra.controller_configuration
-    version: "2.1.94"
+  - name: git+https://github.com/redhat-cop/infra.controller_configuration.git
+  # - name: infra.controller_configuration
+  #   version: "2.1.94"
+...

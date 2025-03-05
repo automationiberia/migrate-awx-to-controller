@@ -1,8 +1,8 @@
----
 collections:
-  - name: awx.awx
+  - name: ansible.controller
+  - name: ansible.platform
+  - name: ansible.utils
+  - name: ansible.posix
+  - name: community.general
   - name: infra.aap_configuration
   - name: infra.aap_configuration_extended
-  - name: infra.ee_utilities
-  - name: infra.aap_utilities
-...

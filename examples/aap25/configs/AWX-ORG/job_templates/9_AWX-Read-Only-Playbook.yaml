@@ -6,16 +6,35 @@ controller_templates:
     project: "AWX-Project"
     inventory: "AWX-Inventory"
     playbook: "readonly-playbooks.yml"
+    scm_branch: ""
+    forks: 0
+    limit: ""
+    verbosity: 0
     job_type: "run"
-    fact_caching_enabled: "False"
+    job_slice_count: 1
+    use_fact_cache: false
     credentials:
       - "AWX-Machine Credential"
-    concurrent_jobs_enabled: "False"
-    ask_scm_branch_on_launch: "False"
-    ask_tags_on_launch: "False"
-    ask_verbosity_on_launch: "False"
-    ask_variables_on_launch: "False"
+    allow_simultaneous: false
+    ask_scm_branch_on_launch: false
+    ask_diff_mode_on_launch: false
+    ask_tags_on_launch: false
+    ask_skip_tags_on_launch: false
+    ask_job_type_on_launch: false
+    ask_verbosity_on_launch: false
+    ask_variables_on_launch: false
+    ask_inventory_on_launch: false
+    ask_limit_on_launch: false
+    ask_credential_on_launch: false
+    job_tags: ""
+    force_handlers: false
+    skip_tags: ""
+    start_at_task: ""
+    timeout: 0
     custom_virtualenv: ""
-    survey_enabled: False
-    survey_spec: {}
+    host_config_key: ""
+    survey_enabled: false
+    become_enabled: false
+    diff_mode: false
+    webhook_service: ""
 ...
