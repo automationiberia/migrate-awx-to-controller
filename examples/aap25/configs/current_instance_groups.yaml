@@ -1,8 +1,0 @@
----
-controller_instance_groups:
-  - name: "tower"
-    policy_instance_minimum: "0"
-    policy_instance_percentage: "100"
-    instances:
-      - "awx"
-...
