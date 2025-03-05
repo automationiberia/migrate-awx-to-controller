@@ -10,6 +10,9 @@
     controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
     controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
     controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+    # filetree_read mandatory parameters
+    dir_orgs_vars: ''
+    orgs: ''
   pre_tasks:
     - name: "Setup authentication (block)"
       no_log: "{{ controller_configuration_filetree_read_secure_logging | default('false') }}"
