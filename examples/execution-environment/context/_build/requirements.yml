@@ -1,8 +1,0 @@
-collections:
-  - name: ansible.controller
-  - name: ansible.platform
-  - name: ansible.utils
-  - name: ansible.posix
-  - name: community.general
-  - name: infra.aap_configuration
-  - name: infra.aap_configuration_extended
