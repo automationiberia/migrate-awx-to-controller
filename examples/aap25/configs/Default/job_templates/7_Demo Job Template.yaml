@@ -1,0 +1,21 @@
+---
+controller_templates:
+  - name: "Demo Job Template"
+    description: ""
+    organization: "Default"
+    project: "Demo Project"
+    inventory: "Demo Inventory"
+    playbook: "hello_world.yml"
+    job_type: "run"
+    fact_caching_enabled: "False"
+    credentials:
+      - "Demo Credential"
+    concurrent_jobs_enabled: "False"
+    ask_scm_branch_on_launch: "False"
+    ask_tags_on_launch: "False"
+    ask_verbosity_on_launch: "False"
+    ask_variables_on_launch: "False"
+    custom_virtualenv: ""
+    survey_enabled: False
+    survey_spec: {}
+...

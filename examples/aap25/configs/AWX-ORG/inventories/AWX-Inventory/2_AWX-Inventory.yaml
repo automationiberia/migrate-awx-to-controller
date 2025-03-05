@@ -1,0 +1,6 @@
+---
+controller_inventories:
+  - name: "AWX-Inventory"
+    description: ""
+    organization: "AWX-ORG"
+...

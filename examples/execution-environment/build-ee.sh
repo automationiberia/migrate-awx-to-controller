@@ -5,7 +5,7 @@ if [ $# -ne 1 ]; then
   exit 1
 fi
 
-AAH=quay.io/automationiberia/casc
+AAH=quay.io/automationiberia/aap
 
 ansible-builder build -v3 --tag ${AAH}/${1}
 podman push ${AAH}/${1} --tls-verify=false

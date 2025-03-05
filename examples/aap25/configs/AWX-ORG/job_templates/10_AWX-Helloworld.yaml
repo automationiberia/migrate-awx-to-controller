@@ -1,0 +1,21 @@
+---
+controller_templates:
+  - name: "AWX-Helloworld"
+    description: ""
+    organization: "AWX-ORG"
+    project: "AWX-Project"
+    inventory: "AWX-Inventory"
+    playbook: "helloworld.yml"
+    job_type: "run"
+    fact_caching_enabled: "False"
+    credentials:
+      - "AWX-Machine Credential"
+    concurrent_jobs_enabled: "False"
+    ask_scm_branch_on_launch: "False"
+    ask_tags_on_launch: "False"
+    ask_verbosity_on_launch: "False"
+    ask_variables_on_launch: "False"
+    custom_virtualenv: ""
+    survey_enabled: False
+    survey_spec: {}
+...

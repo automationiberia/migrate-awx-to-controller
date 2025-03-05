@@ -1,7 +1,8 @@
 ---
 collections:
   - name: awx.awx
-  - name: infra.controller_configuration
+  - name: infra.aap_configuration
+  - name: infra.aap_configuration_extended
   - name: infra.ee_utilities
   - name: infra.aap_utilities
 ...

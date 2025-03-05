@@ -10,6 +10,9 @@
     controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
     controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
     controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+    # filetree_read mandatory parameters
+    dir_orgs_vars: ''
+    orgs: ''
   pre_tasks:
     - name: "Setup authentication (block)"
       no_log: "{{ controller_configuration_filetree_read_secure_logging | default('false') }}"
@@ -19,7 +22,7 @@
       block:
         - name: "Get the Authentication Token for the future requests"
           ansible.builtin.uri:
-            url: "https://{{ controller_hostname }}/api/v2/tokens/"
+            url: "https://{{ controller_hostname }}/api/gateway/v1/tokens/"
             user: "{{ controller_username }}"
             password: "{{ controller_password }}"
             method: POST
@@ -33,8 +36,8 @@
             controller_oauthtoken: "{{ authtoken_res.json.token }}"
             controller_oauthtoken_url: "{{ authtoken_res.json.url }}"
   roles:
-    - infra.controller_configuration.filetree_read
-    - infra.controller_configuration.dispatch
+    - infra.aap_configuration_extended.filetree_read
+    - infra.aap_configuration.dispatch
 
   post_tasks:
     - name: "Delete the Authentication Token used"

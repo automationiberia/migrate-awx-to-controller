@@ -1,0 +1,15 @@
+---
+controller_roles:
+  - user: "awx-org-user"
+    organizations:
+      - "AWX-ORG"
+    role: "member"
+  - user: "awx-org-user"
+    organizations:
+      - "AWX-ORG"
+    role: "admin"
+  - user: "awx-org-user"
+    target_teams:
+      - "awx-team"
+    role: "member"
+...

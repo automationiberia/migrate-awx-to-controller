@@ -3,6 +3,8 @@ version: 3
 images:
   base_image:
     name: quay.io/centos/centos:stream9
+build_arg_defaults:
+  ANSIBLE_GALAXY_CLI_COLLECTION_OPTS: "--ignore-certs"
 dependencies:
   ansible_core:
     # Require minimum of 2.15 to get ansible-inventory --limit option
@@ -34,7 +36,15 @@ dependencies:
     python-daemon
     pyyaml
     six
+options:
+  package_manager_path: /usr/bin/microdnf
+
+additional_build_files:
+  - src: ansible.cfg
+    dest: configs
 additional_build_steps:
+  prepend_galaxy:
+    - COPY _build/configs/ansible.cfg /etc/ansible/ansible.cfg
   append_base:
     - RUN $PYCMD -m pip install -U pip
   append_final:
@@ -42,3 +52,5 @@ additional_build_steps:
     - RUN mkdir -p /var/run/receptor
     - RUN git lfs install --system
     - RUN ansible-galaxy collection install git+https://github.com/redhat-cop/eda_configuration.git --collections-path "/usr/share/ansible/collections"
+    - RUN alternatives --set python /usr/bin/python3
+    - COPY _build/configs/ansible.cfg /etc/ansible/ansible.cfg
