@@ -1,0 +1,11 @@
+---
+controller_inventory_sources:
+  - name: "CONTROLLER-DYN-INV-SOURCE"
+    description: ""
+    organization: "CONTROLLER-ORG"
+    source: "scm"
+    source_project: "CONTROLLER-Project-Inventory"
+    inventory: "CONTROLLER-Dynamic-Inventory"
+    update_on_launch: "True"
+    overwrite: "True"
+...

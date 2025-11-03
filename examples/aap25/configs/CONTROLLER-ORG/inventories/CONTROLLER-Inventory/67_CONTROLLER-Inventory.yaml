@@ -1,7 +1,7 @@
 ---
 controller_inventories:
-  - name: "Demo Inventory"
+  - name: "CONTROLLER-Inventory"
     description: ""
-    organization: "Default"
+    organization: "CONTROLLER-ORG"
     variables: {}
 ...

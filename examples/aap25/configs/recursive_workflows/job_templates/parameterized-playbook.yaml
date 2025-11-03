@@ -1,0 +1,47 @@
+---
+controller_templates:
+  - name: "Parameterized Job Template"
+    description: ""
+    organization: "Recursive Workflows"
+    project: "Controller CasC Examples Project"
+    inventory: "Recursive Workflows Inventory"
+    playbook: "playbooks/simple-playbook.yaml"
+    scm_branch: ""
+    forks: 0
+    limit: ""
+    verbosity: 0
+    job_type: "run"
+    job_slice_count: 1
+    use_fact_cache: False
+    credentials:
+      - "Recursive Workflows Credential"
+    allow_simultaneous: False
+    ask_scm_branch_on_launch: False
+    ask_diff_mode_on_launch: False
+    ask_tags_on_launch: False
+    ask_skip_tags_on_launch: False
+    ask_job_type_on_launch: False
+    ask_verbosity_on_launch: False
+    ask_variables_on_launch: True
+    ask_inventory_on_launch: False
+    ask_limit_on_launch: False
+    ask_credential_on_launch: False
+    ask_execution_environment_on_launch: False
+    ask_labels_on_launc: False
+    ask_forks_on_launch: False
+    ask_job_slice_count_on_launch: False
+    ask_timeout_on_launch: False
+    ask_instance_groups_on_launch: False
+    job_tags: ""
+    force_handlers: False
+    skip_tags: ""
+    start_at_task: ""
+    timeout: 0
+    host_config_key: ""
+    survey_enabled: False
+    survey_spec: {}
+    become_enabled: False
+    diff_mode: False
+    webhook_service: ""
+    prevent_instance_group_fallback: False
+...

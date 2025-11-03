@@ -1,7 +1,0 @@
----
-controller_roles:
-  - team: "awx-team"
-    organizations:
-      - "AWX-ORG"
-    role: "execute"
-...

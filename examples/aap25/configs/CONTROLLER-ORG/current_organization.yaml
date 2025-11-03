@@ -1,0 +1,5 @@
+---
+aap_organizations:
+  - name: "CONTROLLER-ORG"
+    description: "Organization in CONTROLLER"
+...

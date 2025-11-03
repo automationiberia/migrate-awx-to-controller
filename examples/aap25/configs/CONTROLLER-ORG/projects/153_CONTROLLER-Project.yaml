@@ -1,11 +1,11 @@
 ---
 controller_projects:
-  - name: "AWX-Project"
+  - name: "CONTROLLER-Project"
     description: ""
-    organization: "AWX-ORG"
+    organization: "CONTROLLER-ORG"
     scm_type: "git"
     scm_url: "https://github.com/automationiberia/dummy-playbooks.git"
-    scm_branch: "main"
+    scm_branch: "dev-site"
     scm_clean: "True"
     scm_delete_on_update: "True"
     scm_update_on_launch: "False"

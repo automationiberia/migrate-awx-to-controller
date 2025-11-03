@@ -1,13 +1,11 @@
 ---
-controller_settings:
-  - settings:
-      AUTH_LDAP_GROUP_TYPE_PARAMS:
-          member_attr: member
-          name_attr: cn
-      AWX_TASK_ENV:
-          GIT_SSL_NO_VERIFY: 'True'
-          HOME: /var/lib/awx
-      CUSTOM_LOGIN_INFO: Configuration as Code Migration Test
-      INSTALL_UUID: 5f200502-16dd-4410-be36-db9d17959e96
-
+# controller_settings:
+#   - settings:
+#       TOWER_URL_BASE: "https://meetup-aap25-controller.iam.lab"
+#       INSIGHTS_TRACKING_STATE: "false"
+#       PENDO_TRACKING_STATE: "off"
+#       AWX_TASK_ENV:
+#         GIT_SSL_NO_VERIFY: 'True'
+#         HOME: /var/lib/awx
+#       CUSTOM_LOGIN_INFO: Configuration as Code Migration Test
 ...

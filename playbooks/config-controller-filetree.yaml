@@ -6,13 +6,47 @@
   vars:
     controller_configuration_projects_async_retries: 120
     controller_configuration_projects_async_delay: 2
-    controller_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
-    controller_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
-    controller_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
-    controller_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
+    aap_username: "{{ vault_controller_username | default(lookup('env', 'CONTROLLER_USERNAME')) }}"
+    aap_password: "{{ vault_controller_password | default(lookup('env', 'CONTROLLER_PASSWORD')) }}"
+    aap_hostname: "{{ vault_controller_hostname | default(lookup('env', 'CONTROLLER_HOST')) }}"
+    aap_validate_certs: "{{ vault_controller_validate_certs | default(lookup('env', 'CONTROLLER_VERIFY_SSL')) }}"
     # filetree_read mandatory parameters
     dir_orgs_vars: ''
     orgs: ''
+    # Controller Directory Path
+    filetree_aap_applications: &custom_configs_path "{{ playbook_dir }}/../examples/aap25/configs/"
+    filetree_aap_organizations: *custom_configs_path
+    filetree_aap_teams: *custom_configs_path
+    filetree_aap_user_accounts: *custom_configs_path
+    filetree_controller_credential_input_sources: *custom_configs_path
+    filetree_controller_credential_types: *custom_configs_path
+    filetree_controller_credentials: *custom_configs_path
+    filetree_controller_execution_environments: *custom_configs_path
+    filetree_controller_groups: *custom_configs_path
+    filetree_controller_hosts: *custom_configs_path
+    filetree_controller_instance_groups: *custom_configs_path
+    filetree_controller_inventories: *custom_configs_path
+    filetree_controller_inventory_sources: *custom_configs_path
+    filetree_controller_labels: *custom_configs_path
+    filetree_controller_notifications: *custom_configs_path
+    filetree_controller_projects: *custom_configs_path
+    filetree_controller_roles: *custom_configs_path
+    filetree_controller_schedules: *custom_configs_path
+    filetree_controller_settings: *custom_configs_path
+    filetree_controller_templates: *custom_configs_path
+    filetree_controller_workflow_job_templates: *custom_configs_path
+    filetree_gateway_authenticator_maps: *custom_configs_path
+    filetree_gateway_authenticators: *custom_configs_path
+    filetree_gateway_http_ports: *custom_configs_path
+    filetree_gateway_role_definitions: *custom_configs_path
+    filetree_gateway_role_team_assignments: *custom_configs_path
+    filetree_gateway_role_user_assignments: *custom_configs_path
+    filetree_gateway_routes: *custom_configs_path
+    filetree_gateway_service_clusters: *custom_configs_path
+    filetree_gateway_service_keys: *custom_configs_path
+    filetree_gateway_service_nodes: *custom_configs_path
+    filetree_gateway_services: *custom_configs_path
+    filetree_gateway_settings: *custom_configs_path
   pre_tasks:
     - name: "Setup authentication (block)"
       no_log: "{{ controller_configuration_filetree_read_secure_logging | default('false') }}"
@@ -22,12 +56,12 @@
       block:
         - name: "Get the Authentication Token for the future requests"
           ansible.builtin.uri:
-            url: "https://{{ controller_hostname }}/api/gateway/v1/tokens/"
-            user: "{{ controller_username }}"
-            password: "{{ controller_password }}"
+            url: "https://{{ aap_hostname }}/api/gateway/v1/tokens/"
+            user: "{{ aap_username }}"
+            password: "{{ aap_password }}"
             method: POST
             force_basic_auth: true
-            validate_certs: "{{ controller_validate_certs }}"
+            validate_certs: "{{ aap_validate_certs }}"
             status_code: 201
           register: authtoken_res
 
@@ -42,12 +76,12 @@
   post_tasks:
     - name: "Delete the Authentication Token used"
       ansible.builtin.uri:
-        url: "https://{{ controller_hostname }}{{ controller_oauthtoken_url }}"
-        user: "{{ controller_username }}"
-        password: "{{ controller_password }}"
+        url: "https://{{ aap_hostname }}{{ controller_oauthtoken_url }}"
+        user: "{{ aap_username }}"
+        password: "{{ aap_password }}"
         method: DELETE
         force_basic_auth: true
-        validate_certs: "{{ controller_validate_certs }}"
+        validate_certs: "{{ aap_validate_certs }}"
         status_code: 204
       when: controller_oauthtoken_url is defined
 ...

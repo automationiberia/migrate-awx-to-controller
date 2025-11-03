@@ -1,0 +1,15 @@
+---
+controller_execution_environments:
+  - name: "My EE"
+    description: ""
+    image: "quay.io/ansible/awx-ee"
+    pull: "always"
+  - name: "ee-casc"
+    description: ""
+    image: "quay.io/automationiberia/casc/ee-casc"
+    pull: "always"
+  - name: "casc-examples"
+    description: ""
+    image: "quay.io/automationiberia/casc/casc-examples:v0.0.1"
+    pull: "always"
+...

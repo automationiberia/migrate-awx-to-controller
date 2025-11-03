@@ -1,0 +1,21 @@
+---
+controller_hosts:
+  - name: "localhost"
+    description: ""
+    inventory: "Recursive Workflows Inventory"
+    variables:
+      ansible_connection: local
+      ansible_python_interpreter: !unsafe '{{ ansible_playbook_python }}'
+  - name: "host1"
+    description: ""
+    inventory: "Recursive Workflows Inventory"
+    variables:
+      ansible_connection: local
+      ansible_python_interpreter: !unsafe '{{ ansible_playbook_python }}'
+  - name: "host2"
+    description: ""
+    inventory: "Recursive Workflows Inventory"
+    variables:
+      ansible_connection: local
+      ansible_python_interpreter: !unsafe '{{ ansible_playbook_python }}'
+...

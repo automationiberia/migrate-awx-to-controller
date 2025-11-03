@@ -1,11 +1,11 @@
 ---
 controller_projects:
-  - name: "AWX-Project"
+  - name: "CONTROLLER-Project-Inventory"
     description: ""
-    organization: "AWX-ORG"
+    organization: "CONTROLLER-ORG"
     scm_type: "git"
-    scm_url: "https://github.com/automationiberia/dummy-playbooks.git"
-    scm_branch: "main"
+    scm_url: "https://github.com/automationiberia/simple-ansible-inventory.git"
+    scm_branch: ""
     scm_clean: "True"
     scm_delete_on_update: "True"
     scm_update_on_launch: "False"
