@@ -3,6 +3,7 @@
 
 ### Check the /tmp/ directory doesn't contains any filetree_output subdirectory:
    ```console
+   rm -rf /tmp/f*
    ls -l /tmp/f*
    ```
 
