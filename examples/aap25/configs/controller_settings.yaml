@@ -1,0 +1,9 @@
+---
+controller_settings:
+  - settings:
+      AD_HOC_COMMANDS:
+        - command
+        - shell
+      CUSTOM_LOGIN_INFO: ""
+      CUSTOM_LOGO: ""
+...

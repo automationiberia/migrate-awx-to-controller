@@ -1,0 +1,17 @@
+---
+controller_projects:
+  - name: CONTROLLER-Project
+    description: !unsafe
+    organization: CONTROLLER-ORG
+    scm_type: git
+    scm_url: https://github.com/automationiberia/dummy-playbooks.git
+    scm_branch: dev-site
+    scm_clean: true
+    scm_delete_on_update: true
+    scm_update_on_launch: false
+    scm_update_cache_timeout: "0"
+    scm_refspec: ""
+    allow_override: false
+    update_project: false
+    timeout: "0"
+...

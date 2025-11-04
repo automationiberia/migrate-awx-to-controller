@@ -1,0 +1,23 @@
+---
+controller_execution_environments:
+  - name: Minimal execution environment
+    description: !unsafe
+    image: registry.redhat.io/ansible-automation-platform-25/ee-minimal-rhel8:latest
+    pull: missing
+  - name: Default execution environment
+    description: !unsafe
+    image: registry.redhat.io/ansible-automation-platform-25/ee-supported-rhel8:latest
+    pull: missing
+  - name: My EE
+    description: !unsafe
+    image: quay.io/ansible/awx-ee
+    pull: always
+  - name: ee-casc
+    description: !unsafe
+    image: quay.io/automationiberia/casc/ee-casc
+    pull: always
+  - name: casc-examples
+    description: !unsafe
+    image: quay.io/automationiberia/casc/casc-examples:v0.0.1
+    pull: always
+...

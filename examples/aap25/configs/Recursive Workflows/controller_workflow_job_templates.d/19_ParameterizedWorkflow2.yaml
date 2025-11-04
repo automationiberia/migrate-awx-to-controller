@@ -1,0 +1,33 @@
+---
+controller_workflows:
+  - name: ParameterizedWorkflow2
+    description: !unsafe
+    organization: Recursive Workflows
+    simplified_workflow_nodes:
+      - identifier: ParameterizedWorflow2Node1
+        workflow_job_template: ParameterizedWorkflow2
+        unified_job_template: Parameterized Job Template
+        limit: ""
+        organization: Recursive Workflows
+        all_parents_must_converge: "False"
+        extra_data:
+          param2: World
+        success_nodes:
+          - ParameterizedWorflow2Node2
+      - identifier: ParameterizedWorflow2Node2
+        workflow_job_template: ParameterizedWorkflow2
+        unified_job_template: Parameterized Job Template
+        limit: ""
+        organization: Recursive Workflows
+        all_parents_must_converge: "False"
+    ask_variables_on_launch: "False"
+    allow_simultaneous: "False"
+    scm_branch: ""
+    limit: ""
+    ask_limit_on_launch: false
+    ask_inventory_on_launch: false
+    webhook_service: ""
+    extra_vars:
+      param1: Hello from workflow2
+    survey_enabled: false
+...

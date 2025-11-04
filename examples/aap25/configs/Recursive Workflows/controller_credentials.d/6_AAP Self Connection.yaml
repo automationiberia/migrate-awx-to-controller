@@ -1,0 +1,12 @@
+---
+controller_credentials:
+  - name: AAP Self Connection
+    description: !unsafe
+    credential_type: Red Hat Ansible Automation Platform
+    organization: Recursive Workflows
+    inputs:
+      host: https://meetup-aap25-gateway/
+      password: '{{ vaulted_controller_credentials_aap_self_connection_password }}'
+      username: admin
+      verify_ssl: False
+...

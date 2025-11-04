@@ -1,0 +1,8 @@
+---
+controller_inventories:
+  - name: CONTROLLER-Inventory
+    description: !unsafe
+    organization: CONTROLLER-ORG
+    prevent_instance_group_fallback: False
+    variables: {}
+...

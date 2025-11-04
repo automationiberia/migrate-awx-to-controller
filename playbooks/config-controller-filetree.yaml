@@ -1,4 +1,13 @@
 ---
+# Execution example:
+# ansible-playbook playbooks/config-controller-filetree.yaml --vault-password-file .vault-password \
+#   -e @vars/vault.yaml \
+#   -e @vars/paths-aap25.yaml \
+#   -e@vars/vault-aap25.yaml \
+#   -e '{controller_configuration_filetree_read_secure_logging: false,
+#        controller_configuration_inventories_enforce_defaults: true,
+#        controller_configuration_inventory_sources_enforce_defaults: true}'
+#
 - name: Apply Automation Controller Configuration
   hosts: localhost
   connection: local

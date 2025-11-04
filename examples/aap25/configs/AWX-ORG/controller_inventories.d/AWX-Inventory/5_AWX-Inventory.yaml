@@ -1,0 +1,8 @@
+---
+controller_inventories:
+  - name: AWX-Inventory
+    description: !unsafe
+    organization: AWX-ORG
+    prevent_instance_group_fallback: False
+    variables: {}
+...

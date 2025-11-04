@@ -1,0 +1,13 @@
+---
+controller_inventory_sources:
+  - name: CONTROLLER-DYN-INV-SOURCE
+    description: !unsafe
+    organization: CONTROLLER-ORG
+    source: scm
+    limit: ""
+    source_project: CONTROLLER-Project-Inventory
+    source_path: ""
+    inventory: CONTROLLER-Dynamic-Inventory
+    update_on_launch: "True"
+    overwrite: "True"
+...

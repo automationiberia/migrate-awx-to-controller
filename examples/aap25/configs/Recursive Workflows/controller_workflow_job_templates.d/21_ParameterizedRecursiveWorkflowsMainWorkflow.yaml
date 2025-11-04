@@ -1,0 +1,31 @@
+---
+controller_workflows:
+  - name: ParameterizedRecursiveWorkflowsMainWorkflow
+    description: !unsafe
+    organization: Recursive Workflows
+    simplified_workflow_nodes:
+      - identifier: prwmw1
+        workflow_job_template: ParameterizedRecursiveWorkflowsMainWorkflow
+        unified_job_template: ParameterizedWorkflow1
+        limit: ""
+        organization: Recursive Workflows
+        all_parents_must_converge: "False"
+        success_nodes:
+          - prwmw2
+      - identifier: prwmw2
+        workflow_job_template: ParameterizedRecursiveWorkflowsMainWorkflow
+        unified_job_template: ParameterizedWorkflow2
+        limit: ""
+        organization: Recursive Workflows
+        all_parents_must_converge: "False"
+    ask_variables_on_launch: "False"
+    allow_simultaneous: "False"
+    scm_branch: ""
+    limit: ""
+    ask_limit_on_launch: false
+    ask_inventory_on_launch: false
+    webhook_service: ""
+    extra_vars:
+      param2: world from Main
+    survey_enabled: false
+...

@@ -1,5 +1,0 @@
----
-aap_organizations:
-  - name: "AWX-ORG"
-    description: "Organization in AWX"
-...

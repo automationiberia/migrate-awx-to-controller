@@ -1,0 +1,11 @@
+---
+gateway_organizations:
+  - name: Default
+    description: !unsafe
+  - name: Recursive Workflows
+    description: !unsafe Organization to show how to create and use a Workflow tha is calling another workflows
+  - name: CONTROLLER-ORG
+    description: !unsafe Organization in CONTROLLER
+  - name: AWX-ORG
+    description: !unsafe Organization in AWX
+...
